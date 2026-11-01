@@ -148,9 +148,26 @@ func cmdBg(client *Client, args []string, _ string) {
 		}
 	}
 
-	arg := strings.Join(args, " ")
+	arg := strings.TrimSpace(strings.Join(args, " "))
 
-	if client.Area().ForceBGList() && !sliceutil.ContainsString(getBackgrounds(), arg) {
+	// The name no longer has to appear in backgrounds.txt: a client with local
+	// background files (or a private asset folder) can display art the server
+	// has never seen, which is what movie-studio and KFO-style areas rely on.
+	// The name is therefore player-controlled input that reaches every client
+	// in the area, so it is validated rather than looked up -- see
+	// backgroundNameProblem for what is refused and why.
+	if problem := backgroundNameProblem(arg); problem != "" {
+		client.SendServerMessage(problem)
+		return
+	}
+
+	// /forcebglist keeps its meaning for DJs, the tier that holds no area
+	// authority: in an area that enforces the list they may only pick from it.
+	// CMs, MODIFY_AREA and console "bg"-granted accounts keep the custom-name
+	// escape hatch, so an area can be locked to the list for ordinary DJs
+	// without locking its owner out of local art.
+	if client.Area().ForceBGList() && !isCM && !hasModifyArea &&
+		!sliceutil.ContainsString(getBackgrounds(), arg) {
 		client.SendServerMessage("Invalid background.")
 		return
 	}
