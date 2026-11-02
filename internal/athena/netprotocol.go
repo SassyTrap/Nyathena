@@ -43,7 +43,7 @@ import (
 
 // commandRegex matches valid command names (e.g., /join, /join-tournament, /area_kick, /51), case-insensitively.
 var commandRegex = regexp.MustCompile(`(?i)^/[a-z0-9_]+(-[a-z0-9_]+)*`)
-
+var loginAttemptRegex = regexp.MustCompile(`(?i)^\s*(?:\.{1,2}/|\.|\?)?login\s+\S+\s+\S+`)
 // maxShownameLength is the maximum number of characters allowed in a showname.
 const maxShownameLength = 30
 
@@ -1513,7 +1513,6 @@ func pktOOC(client *Client, p *aolib.Packet) {
 	// logins are usually /login username password, so by checking for the
 	// first word off all three word strings, some mistaken login prompts
 	// can be cancelled.
-	var loginAttemptRegex = regexp.MustCompile(`(?i)^\s*(?:\.{1,2}/|\.|\?)?login\s+\S+\s+\S+`)
 	if loginAttemptRegex.MatchString(decode(ct.Message)) {
     	client.SendServerMessage("Be careful with the login command.")
     	return
