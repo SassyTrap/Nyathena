@@ -1476,6 +1476,7 @@ func pktOOC(client *Client, p *aolib.Packet) {
 		return
 	}
 
+
 	// While lockdown is active, a non-moderator under the purge's playtime
 	// threshold is silently dropped -- see the matching check in pktIC.
 	if serverLockdown.Load() && lockdownShouldSilence(client) {
@@ -1508,6 +1509,17 @@ func pktOOC(client *Client, p *aolib.Packet) {
 		return
 	}
 
+	// Various preventions of accidentally leaking login commands in OOC.
+	// logins are usually /login username password, so by checking for the
+	// first word off all three word strings, some mistaken login prompts
+	// can be cancelled.
+	login_mistakes:= [5]string{"./login", "login", "?login", ".login", "Login"}
+	for i:= 0; i < 5; i++ {
+		if strings.Count(ct.Message, " ") == 2 && strings.HasPrefix(ct.Message, login_mistakes[i]) {
+			client.SendServerMessage("Be careful with the login command.")
+			return
+		}
+	}
 	// Join captcha: a plain OOC message from an unverified connection is
 	// blocked -- but if the player simply typed the answer without the
 	// command, take it. The captcha's difficulty is meant to be the question,
