@@ -956,6 +956,11 @@ func cmdResetEmergencyPassword(client *Client, args []string, _ string) {
 	}
 	username, emergencyPassword := args[0], args[1]
 
+	if !db.UserExists(username) {
+		client.SendServerMessage("User does not exist.")
+		return
+	}
+
 	if len(emergencyPassword) < 12 {
 		client.SendServerMessage("Emergency password must be at least 12 characters.")
 		return
@@ -965,11 +970,12 @@ func cmdResetEmergencyPassword(client *Client, args []string, _ string) {
 	// but you do have to already be logged in.
 	//if !config.RegisterCaptcha {
 		if err := db.UpdateEmergencyPassword(username, []byte(emergencyPassword)); err != nil {
-			logger.LogErrorf("Setting Emergency Password failed for %v (IPID %v): %v", username, client.Ipid(), err)
+			logger.LogErrorf("Setting Emergency Password failed for %v to %v (IPID %v): %v", client.ModName(), username, client.Ipid(), err)
 			client.SendServerMessage("Setting emergency password failed. Please try again.")
 			return
 		}
 		client.SendServerMessage("Emergency password reset.")
+		addToBuffer(client, "CMD", fmt.Sprintf("Reset emergency password for user %v.", username), true)
 		return
 	//}
 }

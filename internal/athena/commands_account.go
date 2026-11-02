@@ -827,6 +827,7 @@ func cmdSetEmergencyPassword(client *Client, args []string, _ string) {
 	}
 	if emergencyPassword != confirmEmergencyPassword {
 		client.SendServerMessage("Passwords do not match. Try again.")
+		return
 	}
 
 	// set emergency password
@@ -939,7 +940,6 @@ func cmdUserResetPassword(client *Client, args []string, _ string) {
 	}
 	emergencyPassword, newPassword, confirmNewPassword := args[0], args[1], args[2]
 
-	//TODO: PROPERLY check if emergency password is correct?
 	if err := db.AuthenticateEmergencyPassword(username, []byte(emergencyPassword)); err != nil {
 		logger.LogErrorf("Authenticating emergency password for resetting password failed for %v (IPID %v): %v", username, client.Ipid(), err)
 		client.SendServerMessage("Failed to authenticate emergency password. Please try again.")
@@ -1009,14 +1009,12 @@ func cmdUserResetEmergencyPassword(client *Client, args []string, _ string) {
 	// There's no captcha functionality for setting an emergency password,
 	// but you do have to already be logged in.
 	//if !config.RegisterCaptcha {
-		if err := db.UpdateEmergencyPassword(username, []byte(emergencyPassword)); err != nil {
+		if err := db.UpdateEmergencyPassword(username, []byte(newEmergencyPassword)); err != nil {
 			logger.LogErrorf("Setting Emergency Password failed for %v (IPID %v): %v", username, client.Ipid(), err)
 			client.SendServerMessage("Setting emergency password failed. Please try again.")
 			return
 		}
-		// TODO: UpdateEmergencyPassword doesn't actually seem to update anything here, even though it
-		// does just fine in cmdSetEmergencyPassword.
-		client.SendServerMessage("Emergency password reset. (WARNING: this command doesn't actually work right now!)")
+		client.SendServerMessage("Emergency password reset.")
 		return
 	//}
 }

@@ -234,7 +234,7 @@ func Open() error {
 	if err != nil {
 		return err
 	}
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS USERS(USERNAME TEXT PRIMARY KEY, PASSWORD TEXT, PERMISSIONS TEXT, IPID TEXT NOT NULL DEFAULT '', GAMBLE_HIDE INTEGER NOT NULL DEFAULT 0, EVENT_ALERTS_HIDE INTEGER NOT NULL DEFAULT 0, ACTIVE_TAG TEXT NOT NULL DEFAULT '', USERNAME_RESETS INTEGER NOT NULL DEFAULT 0)")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS USERS(USERNAME TEXT PRIMARY KEY, PASSWORD TEXT, PERMISSIONS TEXT, IPID TEXT NOT NULL DEFAULT '', GAMBLE_HIDE INTEGER NOT NULL DEFAULT 0, EVENT_ALERTS_HIDE INTEGER NOT NULL DEFAULT 0, ACTIVE_TAG TEXT NOT NULL DEFAULT '', USERNAME_RESETS INTEGER NOT NULL DEFAULT 0), EMERGENCY_PASSWORD TEXT NOT NULL DEFAULT ''")
 	if err != nil {
 		return err
 	}
@@ -1073,7 +1073,6 @@ func CheckEmergencyPassword(username string) (bool, error) {
 
 // AuthenticateEmergencyPassword compares the given password parameter to the user's emergency password.
 //
-// TODO: make this actually work properly
 func AuthenticateEmergencyPassword(username string, emergencyPassword []byte) error {
 	var rpass, rperms string
 	result := db.QueryRow("SELECT EMERGENCY_PASSWORD, PERMISSIONS FROM USERS WHERE USERNAME = ?", username)
