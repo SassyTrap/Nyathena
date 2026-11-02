@@ -144,7 +144,7 @@ const tempTagIDPrefix = "tag_temp_"
 
 // Database version.
 // This should be incremented whenever changes are made to the DB that require existing databases to upgrade.
-const ver = 28
+const ver = 29
 
 // MaxFavourites is the maximum number of favourite characters a player can save.
 const MaxFavourites = 100
@@ -234,7 +234,7 @@ func Open() error {
 	if err != nil {
 		return err
 	}
-	_, err = db.Exec("CREATE TABLE IF NOT EXISTS USERS(USERNAME TEXT PRIMARY KEY, PASSWORD TEXT, PERMISSIONS TEXT, IPID TEXT NOT NULL DEFAULT '', GAMBLE_HIDE INTEGER NOT NULL DEFAULT 0, EVENT_ALERTS_HIDE INTEGER NOT NULL DEFAULT 0, ACTIVE_TAG TEXT NOT NULL DEFAULT '', USERNAME_RESETS INTEGER NOT NULL DEFAULT 0)")
+	_, err = db.Exec("CREATE TABLE IF NOT EXISTS USERS(USERNAME TEXT PRIMARY KEY, PASSWORD TEXT, PERMISSIONS TEXT, IPID TEXT NOT NULL DEFAULT '', GAMBLE_HIDE INTEGER NOT NULL DEFAULT 0, EVENT_ALERTS_HIDE INTEGER NOT NULL DEFAULT 0, ACTIVE_TAG TEXT NOT NULL DEFAULT '', USERNAME_RESETS INTEGER NOT NULL DEFAULT 0, EMERGENCY_PASSWORD TEXT NOT NULL DEFAULT '')")
 	if err != nil {
 		return err
 	}
@@ -906,6 +906,18 @@ func upgradeDB(v int) error {
 		if _, err := db.Exec("PRAGMA user_version = 28"); err != nil {
 			return err
 		}
+	case 28:
+		// Add EMERGENCY_PASSWORD string to USERS so emergency password functions can access an emergency password.
+		var usersExists int
+		db.QueryRow("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='USERS'").Scan(&usersExists) //nolint:errcheck
+		if usersExists > 0 {
+			if _, err := db.Exec("ALTER TABLE USERS ADD COLUMN EMERGENCY_PASSWORD TEXT NOT NULL DEFAULT ''"); err != nil {
+				return err
+			}
+		}
+		if _, err := db.Exec("PRAGMA user_version = 29"); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -1020,11 +1032,58 @@ func UpdatePassword(username string, password []byte) error {
 	_, err = db.Exec("UPDATE USERS SET PASSWORD = ? WHERE USERNAME = ?", hashed, username)
 	return err
 }
+func UpdateEmergencyPassword(username string, emergencyPassword []byte) error {
+	hashed, err := bcrypt.GenerateFromPassword(emergencyPassword, 12)
+	if err != nil {
+		return err
+	}
+	_, err = db.Exec("UPDATE USERS SET EMERGENCY_PASSWORD = ? WHERE USERNAME = ?", hashed, username)
+	return err
+}
 
 // ChangePermissions updated the permissions of a user in the database.
 func ChangePermissions(username string, permissions uint64) error {
 	_, err := db.Exec("UPDATE USERS SET PERMISSIONS = ? WHERE USERNAME = ?", strconv.FormatUint(permissions, 10), username)
 	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// CheckEmergencyPassword checks if the user's emergency password is null or not.
+//
+// Useful for /setemergencypassword to check if there already is one, or /resetemergencypassword to check
+// if there isn't.
+func CheckEmergencyPassword(username string) (bool, error) {
+	if db == nil {
+		return false, nil
+	}
+	var n []byte
+	switch err := db.QueryRow("SELECT EMERGENCY_PASSWORD FROM USERS WHERE USERNAME = ?", username).Scan(&n); {
+	case err == sql.ErrNoRows:
+		return false, nil
+	case err != nil:
+		return false, err
+	}
+	if n == nil || len(string(n)) < 12 {
+		return false, nil
+	}
+	return true, nil
+}
+
+// AuthenticateEmergencyPassword compares the given password parameter to the user's emergency password.
+//
+func AuthenticateEmergencyPassword(username string, emergencyPassword []byte) error {
+	var rpass, rperms string
+	result := db.QueryRow("SELECT EMERGENCY_PASSWORD, PERMISSIONS FROM USERS WHERE USERNAME = ?", username)
+	found := result.Scan(&rpass, &rperms) == nil
+
+	hash := []byte(rpass)
+	if !found {
+		hash = dummyBcryptHash
+	}
+	err := bcrypt.CompareHashAndPassword(hash, emergencyPassword)
+	if !found || err != nil {
 		return err
 	}
 	return nil

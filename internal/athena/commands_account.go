@@ -792,6 +792,60 @@ func cmdProfile(client *Client, args []string, _ string) {
 	client.SendServerMessage(sb.String())
 }
 
+// Handles /setemergencypassword <emergencypassword> <confirmemergencypassword>
+//
+// Extra redundancy in case the usual password gets intercepted: the emergency password
+// can override and reset the usual password.
+func cmdSetEmergencyPassword(client *Client, args []string, _ string) {
+	if !client.Authenticated() {
+		client.SendServerMessage("You must be logged in to set your emergency password. Use /login <username> <password> first.")
+		return
+	}
+	oldName := client.ModName()
+	if oldName == "" {
+		client.SendServerMessage("Could not determine your account name.")
+		return
+	}
+
+	// check if you already have an emergency password
+	check, err := db.CheckEmergencyPassword(client.ModName());
+	if err != nil {
+		logger.LogErrorf("Check emergency password failed for %v (IPID%v): %v", client.ModName(), client.Ipid(), err)
+		client.SendServerMessage("Setting emergency password failed. Please try again.")
+		return
+	}
+	if check {
+		client.SendServerMessage("You already have an emergency password set.")
+		return
+	}
+
+	emergencyPassword, confirmEmergencyPassword := args[0], args[1]
+
+	if len(emergencyPassword) < 12 {
+		client.SendServerMessage("Emergency password must be at least 12 characters.")
+		return
+	}
+	if emergencyPassword != confirmEmergencyPassword {
+		client.SendServerMessage("Passwords do not match. Try again.")
+		return
+	}
+
+	// set emergency password
+
+	// There's no captcha functionality for setting an emergency password,
+	// but you do have to already be logged in.
+	//if !config.RegisterCaptcha {
+		if err := db.UpdateEmergencyPassword(client.ModName(), []byte(emergencyPassword)); err != nil {
+			logger.LogErrorf("Setting Emergency Password failed for %v (IPID %v): %v", client.ModName(), client.Ipid(), err)
+			client.SendServerMessage("Setting emergency password failed. Please try again.")
+			return
+		}
+		client.SendServerMessage("Emergency password set.")
+		return
+	//}
+
+}
+
 // Handles /resetusername <new-username>
 //
 // Lets a logged-in player rename their account without losing their
@@ -853,4 +907,114 @@ func cmdResetUsername(client *Client, args []string, _ string) {
 		"✅ Renamed '%v' → '%v'. (%d rename(s) remaining on this account.)",
 		oldName, newName, remaining))
 	addToBuffer(client, "CMD", fmt.Sprintf("Renamed account %v -> %v.", oldName, newName), false)
+}
+// Handles /resetpassword <emergencypassword> <newpassword> <confirmnewpassword>
+//
+// If a user's usual password is intercepted, he or she can recover the account by using the
+// emergency password if he or she set one, whose only purpose is to override and reset the
+// normal password. Makes account more likely to be recoverable even if other users can login
+// with the normal password.
+
+func cmdUserResetPassword(client *Client, args []string, _ string) {
+	if !client.Authenticated() {
+		client.SendServerMessage("You must be logged in to reset your password. Use /login <username> <password> first.")
+		return
+	}
+	username := client.ModName()
+
+	if username == "" {
+		client.SendServerMessage("Could not determine your account name.")
+		return
+	}
+	
+	// check if you have an emergency password
+	check, err := db.CheckEmergencyPassword(client.ModName());
+	if err != nil {
+		logger.LogErrorf("Check emergency password failed for %v (IPID%v): %v", client.ModName(), client.Ipid(), err)
+		client.SendServerMessage("Failed to check if you already have an emergency password. Please try again.")
+		return
+	}
+	if !check {
+		client.SendServerMessage("You don't have an emergency password set. You can set one with /setemergencypassword <emergencypassword> <confirmemergencypassword>")
+		return
+	}
+	emergencyPassword, newPassword, confirmNewPassword := args[0], args[1], args[2]
+
+	if err := db.AuthenticateEmergencyPassword(username, []byte(emergencyPassword)); err != nil {
+		logger.LogErrorf("Authenticating emergency password for resetting password failed for %v (IPID %v): %v", username, client.Ipid(), err)
+		client.SendServerMessage("Failed to authenticate emergency password. Please try again.")
+		return
+	}
+
+	if len(newPassword) < 6 {
+		client.SendServerMessage("Password must be at least 6 characters.")
+		return
+	}
+	if newPassword != confirmNewPassword {
+		client.SendServerMessage("Passwords do not match. Try again.")
+		return
+	}
+
+	// reset the password
+	if err := db.UpdatePassword(username, []byte(newPassword)); err != nil {
+		logger.LogErrorf("Updating password failed for %v (IPID %v): %v", client.ModName(), client.Ipid(), err)
+		client.SendServerMessage("Failed to update password. Please try again.")
+		return
+	}
+	client.SendServerMessage("Password reset.")
+}
+
+// Handles /resetemergencypassword <oldemergencypassword> <newemergencypassword> <confirmnewemergencypassword>.
+func cmdUserResetEmergencyPassword(client *Client, args []string, _ string) {
+	if !client.Authenticated() {
+		client.SendServerMessage("You must be logged in to reset your emergency password. Use /login <username> <password> first.")
+		return
+	}
+	username := client.ModName()
+
+	if username == "" {
+		client.SendServerMessage("Could not determine your account name.")
+		return
+	}
+	emergencyPassword, newEmergencyPassword, confirmNewEmergencyPassword := args[0], args[1], args[2]
+
+	// check if you have an emergency password
+	check, err := db.CheckEmergencyPassword(client.ModName());
+	if err != nil {
+		logger.LogErrorf("Check emergency password failed for %v (IPID%v): %v", client.ModName(), client.Ipid(), err)
+		client.SendServerMessage("Failed to check if you already have an emergency password. Please try again.")
+		return
+	}
+	if !check {
+		client.SendServerMessage("You don't have an emergency password set. You can set one with /setemergencypassword <emergencypassword> <confirmemergencypassword>")
+		return
+	}
+
+	if err := db.AuthenticateEmergencyPassword(username, []byte(emergencyPassword)); err != nil {
+		logger.LogErrorf("Authenticating emergency password for resetting emergency password failed for %v (IPID %v): %v", username, client.Ipid(), err)
+		client.SendServerMessage("Failed to authenticate emergency password. Please try again.")
+		return
+	}
+
+	if len(newEmergencyPassword) < 12 {
+		client.SendServerMessage("Emergency password must be at least 12 characters.")
+		return
+	}
+	if newEmergencyPassword != confirmNewEmergencyPassword {
+		client.SendServerMessage("Passwords do not match.")
+		return
+	}
+	
+	// change the old emergency password to the new one
+	// There's no captcha functionality for setting an emergency password,
+	// but you do have to already be logged in.
+	//if !config.RegisterCaptcha {
+		if err := db.UpdateEmergencyPassword(username, []byte(newEmergencyPassword)); err != nil {
+			logger.LogErrorf("Setting Emergency Password failed for %v (IPID %v): %v", username, client.Ipid(), err)
+			client.SendServerMessage("Setting emergency password failed. Please try again.")
+			return
+		}
+		client.SendServerMessage("Emergency password reset.")
+		return
+	//}
 }
