@@ -1016,7 +1016,7 @@ func cmdUserResetEmergencyPassword(client *Client, args []string, _ string) {
 		}
 		// TODO: UpdateEmergencyPassword doesn't actually seem to update anything here, even though it
 		// does just fine in cmdSetEmergencyPassword.
-		client.SendServerMessage("Emergency password reset.")
+		client.SendServerMessage("Emergency password reset. (WARNING: this command doesn't actually work right now!)")
 		return
 	//}
 }
