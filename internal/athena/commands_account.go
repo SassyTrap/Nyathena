@@ -965,7 +965,7 @@ func cmdUserResetPassword(client *Client, args []string, _ string) {
 }
 
 // Handles /resetemergencypassword <oldemergencypassword> <newemergencypassword> <confirmnewemergencypassword>.
-func cmdResetEmergencyPassword(client *Client, args []string, _ string) {
+func cmdUserResetEmergencyPassword(client *Client, args []string, _ string) {
 	if !client.Authenticated() {
 		client.SendServerMessage("You must be logged in to reset your emergency password. Use /login <username> <password> first.")
 		return
@@ -990,7 +990,6 @@ func cmdResetEmergencyPassword(client *Client, args []string, _ string) {
 		return
 	}
 
-	//TODO: PROPERLY check if emergency password is correct?
 	if err := db.AuthenticateEmergencyPassword(username, []byte(emergencyPassword)); err != nil {
 		logger.LogErrorf("Authenticating emergency password for resetting emergency password failed for %v (IPID %v): %v", username, client.Ipid(), err)
 		client.SendServerMessage("Failed to authenticate emergency password. Please try again.")
@@ -1010,13 +1009,14 @@ func cmdResetEmergencyPassword(client *Client, args []string, _ string) {
 	// There's no captcha functionality for setting an emergency password,
 	// but you do have to already be logged in.
 	//if !config.RegisterCaptcha {
-		if err := db.UpdateEmergencyPassword(client.ModName(), []byte(emergencyPassword)); err != nil {
-			logger.LogErrorf("Setting Emergency Password failed for %v (IPID %v): %v", client.ModName(), client.Ipid(), err)
+		if err := db.UpdateEmergencyPassword(username, []byte(emergencyPassword)); err != nil {
+			logger.LogErrorf("Setting Emergency Password failed for %v (IPID %v): %v", username, client.Ipid(), err)
 			client.SendServerMessage("Setting emergency password failed. Please try again.")
 			return
 		}
+		// TODO: UpdateEmergencyPassword doesn't actually seem to update anything here, even though it
+		// does just fine in cmdSetEmergencyPassword.
 		client.SendServerMessage("Emergency password reset.")
 		return
 	//}
 }
-

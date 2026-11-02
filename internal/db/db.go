@@ -911,7 +911,7 @@ func upgradeDB(v int) error {
 		var usersExists int
 		db.QueryRow("SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='USERS'").Scan(&usersExists) //nolint:errcheck
 		if usersExists > 0 {
-			if _, err := db.Exec("ALTER TABLE USERS ADD COLUMN EMERGENCY_PASSWORD STRING DEFAULT NULL"); err != nil {
+			if _, err := db.Exec("ALTER TABLE USERS ADD COLUMN EMERGENCY_PASSWORD TEXT NOT NULL DEFAULT ''"); err != nil {
 				return err
 			}
 		}
@@ -1065,7 +1065,7 @@ func CheckEmergencyPassword(username string) (bool, error) {
 	case err != nil:
 		return false, err
 	}
-	if n == nil || len(string(n)) < 1{
+	if n == nil || len(string(n)) < 12 {
 		return false, nil
 	}
 	return true, nil

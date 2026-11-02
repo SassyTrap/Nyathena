@@ -1136,6 +1136,14 @@ func initCommands() {
 			reqPerms: permissions.PermissionField["ADMIN"],
 			category: "admin",
 		},
+		"resetemergencypass": {
+			handler:	cmdResetEmergencyPassword,
+			minArgs:	2,
+			usage:		"Usage: /resetemergencypass <username> <new_emergencypassword>",
+			desc:		"Resets the emergency password for the given account.",
+			reqPerms:	permissions.PermissionField["ADMIN"],
+			category:	"admin",
+		},
 		"roll": {
 			handler:  cmdRoll,
 			minArgs:  1,
@@ -2696,7 +2704,7 @@ func initCommands() {
 			category:	"account",
 		},
 		"resetemergencypassword": {
-			handler:	cmdResetEmergencyPassword,
+			handler:	cmdUserResetEmergencyPassword,
 			minArgs:	3,
 			usage:		"Usage: /resetemergencypassword <oldemergencypassword> <newemergencypassword> <confirmemergencypassword>",
 			desc:		"Reset your emergency password. You need your original emergency password for this.",

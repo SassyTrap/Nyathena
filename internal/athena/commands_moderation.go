@@ -948,6 +948,32 @@ func cmdResetPassword(client *Client, args []string, _ string) {
 	addToBuffer(client, "CMD", fmt.Sprintf("Reset password for user %v.", username), true)
 }
 
+// Handles /resetemergencypass
+func cmdResetEmergencyPassword(client *Client, args []string, _ string) {
+	if !client.Authenticated() {
+		client.SendServerMessage("You must be logged in to reset an emergency password. Use /login <username> <password> first.")
+		return
+	}
+	username, emergencyPassword := args[0], args[1]
+
+	if len(emergencyPassword) < 12 {
+		client.SendServerMessage("Emergency password must be at least 12 characters.")
+		return
+	}
+	// change the old emergency password to the new one
+	// There's no captcha functionality for setting an emergency password,
+	// but you do have to already be logged in.
+	//if !config.RegisterCaptcha {
+		if err := db.UpdateEmergencyPassword(username, []byte(emergencyPassword)); err != nil {
+			logger.LogErrorf("Setting Emergency Password failed for %v (IPID %v): %v", username, client.Ipid(), err)
+			client.SendServerMessage("Setting emergency password failed. Please try again.")
+			return
+		}
+		client.SendServerMessage("Emergency password reset.")
+		return
+	//}
+}
+
 // Handles /roll
 
 func cmdChangeRole(client *Client, args []string, _ string) {
