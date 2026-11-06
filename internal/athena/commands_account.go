@@ -290,10 +290,9 @@ func cmdAccount(client *Client, _ []string, _ string) {
 		chips = 0
 		playtimeSec = 0
 	}
-	// Add the current session's elapsed time so the display reflects live playtime.
-	if connAt := client.ConnectedAt(); !connAt.IsZero() {
-		playtimeSec += int64(time.Since(connAt).Seconds())
-	}
+	// Add live session time (summed across every connection sharing this IPID)
+	// so the figure matches /playtime top exactly.
+	playtimeSec += livePlaytimeSeconds(client.Ipid())
 
 	if config.CasinoOn() || config.PebbleOn() {
 		var sb strings.Builder
@@ -334,6 +333,102 @@ func formatPlaytime(seconds int64) string {
 	return fmt.Sprintf("%dm", m)
 }
 
+// formatPlaytimeLong converts seconds into a human-readable "Xd Yh Zm" string,
+// falling back to formatPlaytime below one day. Used for the server-wide total,
+// where a raw hour count stops being readable fast.
+func formatPlaytimeLong(seconds int64) string {
+	if seconds < 86400 {
+		return formatPlaytime(seconds)
+	}
+	d := seconds / 86400
+	h := (seconds % 86400) / 3600
+	m := (seconds % 3600) / 60
+	return fmt.Sprintf("%dd %dh %dm", d, h, m)
+}
+
+// livePlaytimeByIPID snapshots the current session time of every connected
+// client, keyed by IPID. Multiple connections sharing an IPID (multiclient)
+// are summed, matching clientCleanup's accounting. Computed on demand from
+// ConnectedAt — no background timer, no database writes.
+func livePlaytimeByIPID() map[string]int64 {
+	liveSecs := make(map[string]int64, players.GetPlayerCount())
+	clients.ForEach(func(c *Client) {
+		if connAt := c.ConnectedAt(); !connAt.IsZero() {
+			if secs := int64(time.Since(connAt).Seconds()); secs > 0 {
+				liveSecs[c.Ipid()] += secs
+			}
+		}
+	})
+	return liveSecs
+}
+
+// livePlaytimeSeconds returns the summed live session time for a single IPID,
+// so /account, /profile and /playtime top all quote the same figure.
+func livePlaytimeSeconds(ipid string) int64 {
+	return livePlaytimeByIPID()[ipid]
+}
+
+// mergePlaytimeEntries returns a copy of entries with live session time added
+// for matching IPIDs, sorted globally by descending playtime. Username
+// ascending breaks ties deterministically so equal totals never shuffle between
+// pages. Sorting the WHOLE board — not just the requested page — is what keeps
+// a player whose live session pushes them up several ranks from being shown
+// below players with fewer hours.
+func mergePlaytimeEntries(entries []db.PlaytimeEntry, liveSecs map[string]int64) []db.PlaytimeEntry {
+	merged := make([]db.PlaytimeEntry, len(entries))
+	copy(merged, entries)
+	for i := range merged {
+		merged[i].Playtime += liveSecs[merged[i].Ipid]
+	}
+	sort.SliceStable(merged, func(i, j int) bool {
+		if merged[i].Playtime != merged[j].Playtime {
+			return merged[i].Playtime > merged[j].Playtime
+		}
+		return merged[i].Username < merged[j].Username
+	})
+	return merged
+}
+
+// playtimePosition returns the 1-based rank of the viewer's entry, or 0 when
+// they are not on the board. A logged-in account (username) is matched first —
+// /login links the account to the current IPID, but the username is the
+// authoritative identity — then the IPID link is used as a fallback so a
+// logged-out connection whose IPID is still linked to an account also sees its
+// standing.
+func playtimePosition(entries []db.PlaytimeEntry, ipid, username string) int {
+	if username != "" {
+		for i := range entries {
+			if entries[i].Username == username {
+				return i + 1
+			}
+		}
+	}
+	for i := range entries {
+		if entries[i].Ipid == ipid {
+			return i + 1
+		}
+	}
+	return 0
+}
+
+// sumPlaytimeSeconds returns the combined playtime of every entry.
+func sumPlaytimeSeconds(entries []db.PlaytimeEntry) int64 {
+	var total int64
+	for i := range entries {
+		total += entries[i].Playtime
+	}
+	return total
+}
+
+// playtimeTotalPages returns the number of leaderboard pages for total entries
+// (always at least one, so an empty board still reports page 1/1).
+func playtimeTotalPages(total int) int {
+	if total <= 0 {
+		return 1
+	}
+	return (total + playtimePageSize - 1) / playtimePageSize
+}
+
 // playtimePageSize is the number of entries shown per /playtime top page.
 const playtimePageSize = 25
 
@@ -343,6 +438,10 @@ const playtimePageSize = 25
 // `/playtime top` shows page 1 (positions 1–25); `/playtime top 2` shows
 // 26–50; and so on. Both player accounts and moderator accounts (including
 // shadow mods) are eligible — the leaderboard does not filter by permission.
+// Live session time is merged into every entry and the whole board is sorted
+// before the page is sliced, so ranks are real-time and consistent across
+// pages; a server-wide total heads the list and the caller's own position is
+// appended below a --- separator.
 func cmdPlaytimeTop(client *Client, args []string, usage string) {
 	// Admin subcommand: /playtime add <username> <duration>
 	if len(args) > 0 && strings.EqualFold(args[0], "add") {
@@ -378,9 +477,13 @@ func cmdPlaytimeTop(client *Client, args []string, usage string) {
 		}
 	}
 
-	offset := (page - 1) * playtimePageSize
-	entries, err := db.GetTopPlaytimesPaged(playtimePageSize, offset)
-	if err != nil || len(entries) == 0 {
+	// Fetch the WHOLE board rather than one SQL page: live session time has to
+	// be merged into every entry before ranks are computed. Merging only the
+	// requested page (the old behaviour) left players whose live session
+	// pushed them up several ranks stuck at their stale DB rank, so the board
+	// could show someone with 4h below players with 2h.
+	all, err := db.GetAllPlaytimeEntries()
+	if err != nil || len(all) == 0 {
 		if page == 1 {
 			client.SendServerMessage("No playtime data available yet.")
 		} else {
@@ -388,43 +491,45 @@ func cmdPlaytimeTop(client *Client, args []string, usage string) {
 		}
 		return
 	}
-
-	total, _ := db.CountPlaytimeEntries()
-	totalPages := (total + playtimePageSize - 1) / playtimePageSize
-	if totalPages < 1 {
-		totalPages = 1
+	board := mergePlaytimeEntries(all, livePlaytimeByIPID())
+	// Compare against the page count instead of multiplying (page-1)*size: an
+	// absurdly large page argument would otherwise overflow into a negative
+	// offset and panic on the slice below.
+	totalPages := playtimeTotalPages(len(board))
+	if page > totalPages {
+		client.SendServerMessage(fmt.Sprintf("No entries on page %d.", page))
+		return
 	}
-
-	// Build a map of IPID → current-session seconds for all connected clients
-	// so the leaderboard reflects live playtime, not just the last-flushed DB value.
-	// Multiple clients may share the same IPID (multiclient), so use += to sum
-	// all active sessions for the same IPID, matching clientCleanup behaviour.
-	liveSecs := make(map[string]int64, players.GetPlayerCount())
-	clients.ForEach(func(c *Client) {
-		if connAt := c.ConnectedAt(); !connAt.IsZero() {
-			if secs := int64(time.Since(connAt).Seconds()); secs > 0 {
-				liveSecs[c.Ipid()] += secs
-			}
-		}
-	})
-	if len(liveSecs) > 0 {
-		for i := range entries {
-			if s, ok := liveSecs[entries[i].Ipid]; ok {
-				entries[i].Playtime += s
-			}
-		}
-		// Note: re-sorting only re-orders entries within this page slice. Cross-page
-		// reordering on tight contests is acceptable; the DB query already provides
-		// the canonical ordering.
-		sort.Slice(entries, func(i, j int) bool {
-			return entries[i].Playtime > entries[j].Playtime
-		})
+	// A logged-in viewer is identified by their account name; the IPID fallback
+	// inside playtimePosition covers logged-out connections whose IPID is still
+	// linked to an account.
+	viewerName := ""
+	if client.Authenticated() {
+		viewerName = client.ModName()
 	}
+	client.SendServerMessage(renderPlaytimePage(page, board, client.Ipid(), viewerName))
+}
+
+// renderPlaytimePage formats one page of the playtime leaderboard: the
+// server-wide total, the page's 25 ranked entries, and — below a --- separator
+// so it never counts as part of the page — the viewer's own standing. Pure so
+// the exact output can be pinned by tests; the caller must ensure the requested
+// page exists (offset below len(board)).
+func renderPlaytimePage(page int, board []db.PlaytimeEntry, viewerIpid, viewerUsername string) string {
+	total := len(board)
+	totalPages := playtimeTotalPages(total)
+	offset := (page - 1) * playtimePageSize
+	end := offset + playtimePageSize
+	if end > total {
+		end = total
+	}
+	entries := board[offset:end]
 
 	var sb strings.Builder
-	sb.Grow(60 + len(entries)*35)
+	sb.Grow(160 + len(entries)*35)
 	sb.WriteString(fmt.Sprintf("\n⏱ Playtime Leaderboard — Page %d/%d (%d total)\n",
 		page, totalPages, total))
+	sb.WriteString(fmt.Sprintf("🕒 Server total playtime: %v\n", formatPlaytimeLong(sumPlaytimeSeconds(board))))
 	for i, e := range entries {
 		rank := offset + i + 1
 		sb.WriteString(fmt.Sprintf("  %3d. %-20v  %v\n", rank, e.Username, formatPlaytime(e.Playtime)))
@@ -432,7 +537,17 @@ func cmdPlaytimeTop(client *Client, args []string, usage string) {
 	if page < totalPages {
 		sb.WriteString(fmt.Sprintf("\nUse /playtime top %d for the next page.\n", page+1))
 	}
-	client.SendServerMessage(sb.String())
+	// Append the viewer's own standing below a separator so it never counts as
+	// part of the paginated 25-entry list.
+	sb.WriteString("---\n")
+	if pos := playtimePosition(board, viewerIpid, viewerUsername); pos > 0 {
+		me := board[pos-1]
+		sb.WriteString(fmt.Sprintf("📌 Your position: #%d of %d — %v (%v)\n",
+			pos, total, me.Username, formatPlaytime(me.Playtime)))
+	} else {
+		sb.WriteString("📌 You are not on the leaderboard yet.\n")
+	}
+	return sb.String()
 }
 
 // cmdReloadPlaytime is an admin tool that walks every registered account and
@@ -697,16 +812,15 @@ func cmdProfile(client *Client, args []string, _ string) {
 		}
 	}
 
-	// Chips + playtime: pulled from the account-stats table; session time is
-	// added on top for a live total, matching /account's behaviour.
+	// Chips + playtime: pulled from the account-stats table; live session time
+	// (summed across every connection sharing the target's IPID) is added on
+	// top for a live total, matching /account and /playtime top.
 	chips, playtimeSec, err := db.GetAccountStats(target.Ipid())
 	if err != nil {
 		chips = 0
 		playtimeSec = 0
 	}
-	if connAt := target.ConnectedAt(); !connAt.IsZero() {
-		playtimeSec += int64(time.Since(connAt).Seconds())
-	}
+	playtimeSec += livePlaytimeSeconds(target.Ipid())
 
 	// The exact playtime figure is itself identifying: /playtime top lists
 	// every registered account's hours by username, so even with the account

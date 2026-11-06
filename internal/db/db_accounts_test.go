@@ -77,6 +77,67 @@ func TestGetUsernameByIPIDNotFound(t *testing.T) {
 	}
 }
 
+// TestGetAllPlaytimeEntries verifies that the unpaginated leaderboard query
+// returns every linked account with playtime, ordered descending by playtime,
+// and excludes anonymous IPIDs and zero-playtime rows. This query backs the
+// real-time /playtime top board, which merges live session time and sorts
+// globally before paginating.
+func TestGetAllPlaytimeEntries(t *testing.T) {
+	teardown := setupTestDB(t)
+	defer teardown()
+
+	accounts := []struct {
+		name string
+		ipid string
+		secs int64
+	}{
+		{"lowrank", "ipid_pt_low", 600},
+		{"highrank", "ipid_pt_high", 2 * 3600},
+		{"midrank", "ipid_pt_mid", 3600},
+	}
+	for _, a := range accounts {
+		if err := RegisterPlayer(a.name, []byte("password1"), a.ipid); err != nil {
+			t.Fatalf("RegisterPlayer(%s) failed: %v", a.name, err)
+		}
+		if err := MarkIPKnown(a.ipid); err != nil {
+			t.Fatalf("MarkIPKnown(%s) failed: %v", a.name, err)
+		}
+		if err := AddPlaytime(a.ipid, a.secs); err != nil {
+			t.Fatalf("AddPlaytime(%s) failed: %v", a.name, err)
+		}
+	}
+
+	// Anonymous IPID with playtime but no USERS row: never on the leaderboard.
+	if err := MarkIPKnown("ipid_pt_anon"); err != nil {
+		t.Fatalf("MarkIPKnown(anon) failed: %v", err)
+	}
+	if err := AddPlaytime("ipid_pt_anon", 99999); err != nil {
+		t.Fatalf("AddPlaytime(anon) failed: %v", err)
+	}
+
+	entries, err := GetAllPlaytimeEntries()
+	if err != nil {
+		t.Fatalf("GetAllPlaytimeEntries failed: %v", err)
+	}
+	if len(entries) != len(accounts) {
+		t.Fatalf("expected %d entries, got %d", len(accounts), len(entries))
+	}
+	wantNames := []string{"highrank", "midrank", "lowrank"}
+	wantTimes := []int64{2 * 3600, 3600, 600}
+	for i := range wantNames {
+		if entries[i].Username != wantNames[i] {
+			t.Errorf("entry %d: expected %q, got %q", i, wantNames[i], entries[i].Username)
+		}
+		if entries[i].Playtime != wantTimes[i] {
+			t.Errorf("entry %d (%s): expected %d seconds, got %d",
+				i, wantNames[i], wantTimes[i], entries[i].Playtime)
+		}
+		if entries[i].Ipid == "" {
+			t.Errorf("entry %d (%s): expected IPID to be populated for live merge", i, wantNames[i])
+		}
+	}
+}
+
 // TestLinkIPIDToUser verifies that LinkIPIDToUser updates the stored IPID.
 func TestLinkIPIDToUser(t *testing.T) {
 	teardown := setupTestDB(t)

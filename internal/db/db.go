@@ -2537,7 +2537,9 @@ func GetTopPlaytimes(n int) ([]PlaytimeEntry, error) {
 }
 
 // GetTopPlaytimesPaged returns up to n entries starting at the given offset.
-// Used to back the paginated /playtime top <page> command.
+// Retained for callers that only need a fixed top-N slice (e.g. the
+// newspaper); /playtime top uses GetAllPlaytimeEntries so it can merge live
+// session time and sort globally before paginating.
 func GetTopPlaytimesPaged(n, offset int) ([]PlaytimeEntry, error) {
 	if db == nil {
 		return nil, nil
@@ -2567,20 +2569,36 @@ func GetTopPlaytimesPaged(n, offset int) ([]PlaytimeEntry, error) {
 	return entries, rows.Err()
 }
 
-// CountPlaytimeEntries returns the total number of accounts that would appear
-// in the playtime leaderboard. Used to compute the last page number for
-// /playtime top <page>.
-func CountPlaytimeEntries() (int, error) {
+// GetAllPlaytimeEntries returns every leaderboard-eligible row — a registered
+// account with a linked IPID and non-zero playtime — ordered descending.
+// Unlike GetTopPlaytimesPaged it applies no LIMIT/OFFSET, so /playtime top can
+// merge live session time into every entry and sort globally before slicing a
+// page. Merging after SQL pagination would hand out ranks from stale DB values.
+// The leaderboard holds one row per registered account (hundreds, not
+// millions), so the full fetch stays cheap.
+func GetAllPlaytimeEntries() ([]PlaytimeEntry, error) {
 	if db == nil {
-		return 0, nil
+		return nil, nil
 	}
-	var n int
-	err := db.QueryRow(`
-		SELECT COUNT(*)
+	rows, err := db.Query(`
+		SELECT k.IPID, u.USERNAME, k.PLAYTIME
 		FROM KNOWN_IPS k
 		INNER JOIN USERS u ON u.IPID = k.IPID
-		WHERE k.PLAYTIME > 0`).Scan(&n)
-	return n, err
+		WHERE k.PLAYTIME > 0
+		ORDER BY k.PLAYTIME DESC, u.USERNAME ASC`)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var entries []PlaytimeEntry
+	for rows.Next() {
+		var e PlaytimeEntry
+		if err := rows.Scan(&e.Ipid, &e.Username, &e.Playtime); err != nil {
+			return entries, err
+		}
+		entries = append(entries, e)
+	}
+	return entries, rows.Err()
 }
 
 // AllRegisteredIPIDs returns every (username, ipid, current_playtime) triple

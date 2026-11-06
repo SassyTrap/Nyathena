@@ -148,7 +148,7 @@ So you never have to remember to undo one, and a restart returns every area to i
 | `/logout` | Sign out |
 | `/account` | View your account info |
 | `/profile [uid]` | Show a profile card. DJs get a 💿 vinyl badge. |
-| `/playtime` | Show the playtime leaderboard (page 1, 25 entries) |
+| `/playtime` | Show the playtime leaderboard (page 1, 25 entries) with the server-wide total and your own position |
 | `/playtime top <page>` | Browse subsequent pages of 25 |
 | `/resetusername <new>` | Rename your account (keeps playtime/chips/wardrobe). Capped at **3 renames per account**. |
 
