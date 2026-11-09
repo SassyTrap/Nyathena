@@ -159,9 +159,6 @@ func cmdDailyQuote(client *Client, _ []string, _ string) {
 }
 
 func dailyQuoteSprite() string {
-	if getCharacterID("Phoenix") >= 0 {
-		return "Phoenix"
-	}
 	chars := getCharacters()
 	if len(chars) > 0 {
 		return chars[0]
