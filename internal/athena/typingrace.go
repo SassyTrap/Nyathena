@@ -247,7 +247,7 @@ func typingRaceOnIC(client *Client, msgText string) {
 	typingRace.lastRaceEnd = time.Now()
 	typingRace.mu.Unlock()
 
-	wordCount := len(phraseRaw.replace(" ", "")) / 5
+	wordCount := len(strings.ReplaceAll(phraseRaw, " ", "")) / 5
 	minutes := elapsed.Minutes()
 	var wpm float64
 	if minutes > 0 {
