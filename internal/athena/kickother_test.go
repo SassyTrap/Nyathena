@@ -1,3 +1,6 @@
+Replace the entire `internal/athena/kickother_test.go` file with this. It keeps the existing test and defines `newTestClients` there, so CI no longer depends on the deleted `testclients_test.go`.
+
+```go name=internal/athena/kickother_test.go url=https://github.com/SyntaxNyah/Nyathena/blob/b5e97476ed322d1c8c29ac43fc4343b7a3d7fad8/internal/athena/kickother_test.go
 package athena
 
 import (
@@ -7,6 +10,21 @@ import (
 	"testing"
 	"time"
 )
+
+// newTestClients gives each test a clean client list and restores the original
+// list during cleanup.
+func newTestClients(t *testing.T) {
+	t.Helper()
+
+	original := clients
+	t.Cleanup(func() { clients = original })
+
+	clients = &ClientList{
+		list:       make(map[*Client]struct{}),
+		uidIndex:   make(map[int]*Client),
+		ipidCounts: make(map[string]int),
+	}
+}
 
 type testAddr string
 
@@ -84,3 +102,4 @@ func TestKickOtherUsesHDIDAndSkipsCaller(t *testing.T) {
 		t.Fatal("did not expect command caller to be kicked")
 	}
 }
+```
