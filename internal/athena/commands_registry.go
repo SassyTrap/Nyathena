@@ -93,6 +93,14 @@ func initCommands() {
 			reqPerms: permissions.PermissionField["NONE"],
 			category: "general",
 		},
+		"dailyquote": {
+			handler:  cmdDailyQuote,
+			minArgs:  0,
+			usage:    "Usage: /dailyquote",
+			desc:     "Display the daily quote as Kai-Bot-SG IC text.",
+			reqPerms: permissions.PermissionField["NONE"],
+			category: "general",
+		},
 		"8ball": {
 			handler:  cmd8Ball,
 			minArgs:  1,
