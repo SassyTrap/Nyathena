@@ -123,7 +123,7 @@ func cmdDailyQuote(client *Client, _ []string, _ string) {
 			client.SendServerMessage("Kai-Bot-SG needs an IC message limit of at least 32 characters.")
 			return
 		}
-		parts := splitDailyQuote(fmt.Sprintf("“%s” — %s", item.Quote, item.Author), maxRunes)
+		parts := splitDailyQuote(fmt.Sprintf("\"%s\" — %s", item.Quote, item.Author), maxRunes)
 		if len(parts) == 0 {
 			client.SendServerMessage("Kai-Bot-SG received an empty quote.")
 			return
