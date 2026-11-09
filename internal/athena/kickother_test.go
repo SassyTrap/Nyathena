@@ -1,6 +1,3 @@
-The build fails because `kickother_test.go` contains Markdown fences as literal text. Replace the **entire file** with this Go code—don’t include the opening or closing Markdown fences in the file:
-
-```go name=internal/athena/kickother_test.go url=https://github.com/SyntaxNyah/Nyathena/blob/e3d307c6c20443e812cdaf6fbc0d4155c73adb76/internal/athena/kickother_test.go
 package athena
 
 import (
@@ -70,7 +67,11 @@ func (c *testConn) Closed() bool {
 func TestKickOtherUsesHDIDAndSkipsCaller(t *testing.T) {
 	origClients := clients
 	t.Cleanup(func() { clients = origClients })
-	clients = &ClientList{list: make(map[*Client]struct{}), uidIndex: make(map[int]*Client), ipidCounts: make(map[string]int)}
+	clients = &ClientList{
+		list:       make(map[*Client]struct{}),
+		uidIndex:   make(map[int]*Client),
+		ipidCounts: make(map[string]int),
+	}
 
 	callerConn := &testConn{}
 	sameHDIDConn := &testConn{}
@@ -102,4 +103,3 @@ func TestKickOtherUsesHDIDAndSkipsCaller(t *testing.T) {
 		t.Fatal("did not expect command caller to be kicked")
 	}
 }
-```
