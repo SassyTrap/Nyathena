@@ -1,4 +1,6 @@
-```go name=internal/athena/kickother_test.go url=https://github.com/SyntaxNyah/Nyathena/blob/b5e97476ed322d1c8c29ac43fc4343b7a3d7fad8/internal/athena/kickother_test.go
+The build fails because `kickother_test.go` contains Markdown fences as literal text. Replace the **entire file** with this Go code—don’t include the opening or closing Markdown fences in the file:
+
+```go name=internal/athena/kickother_test.go url=https://github.com/SyntaxNyah/Nyathena/blob/e3d307c6c20443e812cdaf6fbc0d4155c73adb76/internal/athena/kickother_test.go
 package athena
 
 import (
