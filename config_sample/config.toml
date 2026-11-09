@@ -1371,8 +1371,11 @@ typing_race_phrases = []
 
 # --- Daily Quote ------------------------------------------------------------
 # Enable the public /dailyquote command (Kai-Bot-SG).
-# Default: false
-enable_dailyquote = false
+# Existing configurations without this option leave the command disabled.
+dailyquote = true
+
+# Use only built-in quotes; avoids HTTP requests and disk cache writes.
+dailyquote_offline = false
 
 # --- Daily Newspaper --------------------------------------------------------
 

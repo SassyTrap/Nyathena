@@ -48,13 +48,13 @@ func TestDailyQuoteCachesTodayInMemoryAndOnDisk(t *testing.T) {
 	var cache zenDailyQuoteCache
 	day := "2025-01-02"
 	for i := 0; i < 2; i++ {
-		item, err := cache.get(context.Background(), day, server.URL, cachePath, server.Client())
+		item, err := cache.get(context.Background(), day, server.URL, cachePath, server.Client(), false)
 		if err != nil || item.Quote != "Test # quote & percent %" {
 			t.Fatalf("fetch %d: %+v, %v", i, item, err)
 		}
 	}
 	var afterRestart zenDailyQuoteCache
-	if _, err := afterRestart.get(context.Background(), day, "http://localhost:1/invalid", cachePath, server.Client()); err != nil {
+	if _, err := afterRestart.get(context.Background(), day, "http://localhost:1/invalid", cachePath, server.Client(), false); err != nil {
 		t.Fatalf("disk cache wasn't reused: %v", err)
 	}
 	if hits.Load() != 1 {
@@ -100,5 +100,58 @@ func TestDailyQuoteRoomLimitAndCooldown(t *testing.T) {
 	}
 	for _, room := range rooms {
 		dailyQuoteRelease(room, false, now)
+	}
+}
+
+func TestDailyQuoteBuiltInOfflineMode(t *testing.T) {
+	var hits atomic.Int32
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hits.Add(1)
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer server.Close()
+	var cache zenDailyQuoteCache
+	for i := 0; i < 2; i++ {
+		item, err := cache.get(context.Background(), "2026-11-09", server.URL, filepath.Join(t.TempDir(), "never-written.json"), server.Client(), true)
+		if err != nil || !validZenDailyQuote(item) || item != offlineDailyQuote("2026-11-09") {
+			t.Fatalf("unexpected built-in quote: %+v, %v", item, err)
+		}
+	}
+	if hits.Load() != 0 {
+		t.Fatal("offline mode made an HTTP request")
+	}
+}
+
+func TestDailyQuoteAPIFailureFallsBackAndCaches(t *testing.T) {
+	var hits atomic.Int32
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hits.Add(1)
+		w.WriteHeader(http.StatusTooManyRequests)
+	}))
+	defer server.Close()
+	cachePath := filepath.Join(t.TempDir(), "quote.json")
+	var cache zenDailyQuoteCache
+	for i := 0; i < 2; i++ {
+		item, err := cache.get(context.Background(), "2026-11-09", server.URL, cachePath, server.Client(), false)
+		if err != nil || item != offlineDailyQuote("2026-11-09") {
+			t.Fatalf("fallback %d: %+v, %v", i, item, err)
+		}
+	}
+	if hits.Load() != 1 {
+		t.Fatalf("unexpected API attempts: %d", hits.Load())
+	}
+	var afterRestart zenDailyQuoteCache
+	item, err := afterRestart.get(context.Background(), "2026-11-09", "http://localhost:1/unavailable", cachePath, server.Client(), false)
+	if err != nil || item != offlineDailyQuote("2026-11-09") {
+		t.Fatalf("offline quote not restored from disk: %+v, %v", item, err)
+	}
+}
+
+func TestDailyQuoteNoWritableCacheNeeded(t *testing.T) {
+	var cache zenDailyQuoteCache
+	// A directory cannot be replaced with the cache file.
+	item, err := cache.get(context.Background(), "2026-11-09", "http://127.0.0.1:1", t.TempDir(), &http.Client{Timeout: 200*time.Millisecond}, false)
+	if err != nil || item != offlineDailyQuote("2026-11-09") {
+		t.Fatalf("read-only cache fallback failed: %+v, %v", item, err)
 	}
 }

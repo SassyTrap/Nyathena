@@ -89,7 +89,7 @@ func dailyQuoteRelease(room *area.Area, success bool, now time.Time) {
 }
 
 func cmdDailyQuote(client *Client, _ []string, _ string) {
-	if config == nil || !config.EnableDailyQuote {
+	if config == nil || !config.DailyQuote {
 		client.SendServerMessage("The daily quote command is not enabled on this server.")
 		return
 	}
@@ -109,7 +109,7 @@ func cmdDailyQuote(client *Client, _ []string, _ string) {
 
 		ctx, cancel := context.WithTimeout(context.Background(), dailyQuoteHTTPTimeout)
 		defer cancel()
-		item, err := dailyQuoteCache.get(ctx, time.Now().UTC().Format("2006-01-02"), dailyQuoteEndpoint, dailyQuoteCachePath(), dailyQuoteHTTPClient)
+		item, err := dailyQuoteCache.get(ctx, time.Now().UTC().Format("2006-01-02"), dailyQuoteEndpoint, dailyQuoteCachePath(), dailyQuoteHTTPClient, config.DailyQuoteOffline)
 		if err != nil {
 			logger.LogWarningf("dailyquote: ZenQuotes fetch failed: %v", err)
 			client.SendServerMessage("Kai-Bot-SG couldn't load today's quote. Please try again later.")
@@ -176,7 +176,10 @@ func dailyQuoteCachePath() string {
 	return filepath.Join(settings.ConfigPath, dailyQuoteCacheName)
 }
 
-func (s *zenDailyQuoteCache) get(ctx context.Context, day, endpoint, path string, client *http.Client) (zenDailyQuote, error) {
+func (s *zenDailyQuoteCache) get(ctx context.Context, day, endpoint, path string, client *http.Client, offline bool) (zenDailyQuote, error) {
+	if offline {
+		return offlineDailyQuote(day), nil
+	}
 	s.Lock()
 	defer s.Unlock()
 	if day == s.day && validZenDailyQuote(s.item) {
@@ -193,7 +196,8 @@ func (s *zenDailyQuoteCache) get(ctx context.Context, day, endpoint, path string
 	}
 	item, err := requestZenDailyQuote(ctx, endpoint, client)
 	if err != nil {
-		return zenDailyQuote{}, err
+		logger.LogWarningf("dailyquote: ZenQuotes unavailable, using built-in quote: %v", err)
+		item = offlineDailyQuote(day)
 	}
 	s.day, s.item = day, item
 	if path != "" {
@@ -202,6 +206,33 @@ func (s *zenDailyQuoteCache) get(ctx context.Context, day, endpoint, path string
 		}
 	}
 	return item, nil
+}
+
+var offlineDailyQuotes = []zenDailyQuote{
+	{Quote: "A good question can be more useful than a quick answer.", Author: "Kai-Bot-SG"},
+	{Quote: "The truth becomes clearer when every detail gets its turn.", Author: "Kai-Bot-SG"},
+	{Quote: "Patience is often the first step toward a fair judgment.", Author: "Kai-Bot-SG"},
+	{Quote: "Even the smallest clue deserves a careful look.", Author: "Kai-Bot-SG"},
+	{Quote: "A strong case begins with listening.", Author: "Kai-Bot-SG"},
+	{Quote: "Every story has another angle worth considering.", Author: "Kai-Bot-SG"},
+	{Quote: "Good reasoning holds up when the questions get harder.", Author: "Kai-Bot-SG"},
+	{Quote: "One clear fact can change the direction of a whole case.", Author: "Kai-Bot-SG"},
+	{Quote: "The best argument leaves room for the facts to speak.", Author: "Kai-Bot-SG"},
+	{Quote: "Clarity is built one careful observation at a time.", Author: "Kai-Bot-SG"},
+	{Quote: "An open mind makes room for better evidence.", Author: "Kai-Bot-SG"},
+	{Quote: "What matters is not how loudly a claim is made, but how well it holds up.", Author: "Kai-Bot-SG"},
+}
+
+func offlineDailyQuote(day string) zenDailyQuote {
+	date, err := time.Parse("2006-01-02", day)
+	if err != nil {
+		return offlineDailyQuotes[0]
+	}
+	index := int(date.Unix()/86400) % len(offlineDailyQuotes)
+	if index < 0 {
+		index += len(offlineDailyQuotes)
+	}
+	return offlineDailyQuotes[index]
 }
 
 func validZenDailyQuote(q zenDailyQuote) bool {
