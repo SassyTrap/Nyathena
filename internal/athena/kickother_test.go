@@ -1,5 +1,3 @@
-Replace the entire `internal/athena/kickother_test.go` file with this. It keeps the existing test and defines `newTestClients` there, so CI no longer depends on the deleted `testclients_test.go`.
-
 ```go name=internal/athena/kickother_test.go url=https://github.com/SyntaxNyah/Nyathena/blob/b5e97476ed322d1c8c29ac43fc4343b7a3d7fad8/internal/athena/kickother_test.go
 package athena
 
