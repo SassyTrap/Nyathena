@@ -198,6 +198,7 @@ type ServerConfig struct {
 	VoteActions         []string `toml:"vote_actions"`
 	VoteMuteDuration    int      `toml:"vote_mute_duration"`
 	TypingRacePhrases   []string `toml:"typing_race_phrases"`
+	EnableDailyQuote    bool     `toml:"enable_dailyquote"`
 	EnableNewspaper     bool     `toml:"enable_newspaper"`
 	NewspaperInterval   string   `toml:"newspaper_interval"`
 	NewspaperSections   []string `toml:"newspaper_sections"`

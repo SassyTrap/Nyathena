@@ -4,6 +4,16 @@ Adds `/dailyquote` to Nyathena. Anyone can invoke it from OOC to display the dai
 
 The existing moderator `/quote` punishment is unchanged.
 
+## Configuration
+
+The command is disabled by default. Add this option under `[Server]` in the VPS's `config/config.toml` to enable it:
+
+```toml
+enable_dailyquote = true
+```
+
+Set it to `false` to disable `/dailyquote`. When disabled, no quote requests are made. The sample `config_sample/config.toml` includes the option set to `false`; operators with existing configurations must add it manually. Restart Nyathena after changing this setting; it is not hot-reloaded.
+
 ## Behavior
 
 - Fetches `https://zenquotes.io/api/today` and caches the result by UTC day in memory and in `zenquotes_dailyquote_cache.json` under the server config directory.

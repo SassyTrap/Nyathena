@@ -89,6 +89,10 @@ func dailyQuoteRelease(room *area.Area, success bool, now time.Time) {
 }
 
 func cmdDailyQuote(client *Client, _ []string, _ string) {
+	if config == nil || !config.EnableDailyQuote {
+		client.SendServerMessage("The daily quote command is not enabled on this server.")
+		return
+	}
 	room := client.Area()
 	if room == nil {
 		client.SendServerMessage("Please join a room before requesting a daily quote.")
