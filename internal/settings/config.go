@@ -200,6 +200,8 @@ type ServerConfig struct {
 	TypingRacePhrases   []string `toml:"typing_race_phrases"`
 	DailyQuote          bool     `toml:"dailyquote"`
 	DailyQuoteOffline   bool     `toml:"dailyquote_offline"`
+	Icebreaker          bool     `toml:"icebreaker"`
+	IcebreakerOffline   bool     `toml:"icebreaker_offline"`
 	EnableNewspaper     bool     `toml:"enable_newspaper"`
 	NewspaperInterval   string   `toml:"newspaper_interval"`
 	NewspaperSections   []string `toml:"newspaper_sections"`

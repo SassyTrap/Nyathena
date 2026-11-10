@@ -1377,6 +1377,13 @@ dailyquote = true
 # Use only built-in quotes; avoids HTTP requests and disk cache writes.
 dailyquote_offline = false
 
+# --- Icebreaker -------------------------------------------------------------
+# Enable the public /icebreaker command (Kai-Bot-SG).
+icebreaker = false
+
+# Use only built-in questions; avoids HTTP requests and disk cache writes.
+icebreaker_offline = false
+
 # --- Daily Newspaper --------------------------------------------------------
 
 # Enable the auto-generated IC newspaper that is broadcast at a fixed interval.

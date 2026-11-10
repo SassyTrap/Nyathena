@@ -101,6 +101,14 @@ func initCommands() {
 			reqPerms: permissions.PermissionField["NONE"],
 			category: "general",
 		},
+		"icebreaker": {
+			handler:  cmdIcebreaker,
+			minArgs:  0,
+			usage:    "Usage: /icebreaker",
+			desc:     "Display the daily icebreaker question as Kai-Bot-SG IC text.",
+			reqPerms: permissions.PermissionField["NONE"],
+			category: "general",
+		},
 		"8ball": {
 			handler:  cmd8Ball,
 			minArgs:  1,
