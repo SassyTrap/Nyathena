@@ -1,0 +1,26 @@
+# sprite-folder|animation|answer|accepted alias 1|accepted alias 2
+# Names are editable; check the actual asset host for sprite folders before adding other characters.
+Phoenix|normal|Phoenix Wright|Nick|Wright
+Miles|normal|Miles Edgeworth|Edgeworth
+Maya|normal|Maya Fey|Maya
+Apollo|normal|Apollo Justice|Apollo
+Trucy|normal|Trucy Wright|Trucy
+Franziska|normal|Franziska von Karma|Franziska
+Gumshoe|normal|Dick Gumshoe|Gumshoe
+Ema|normal|Ema Skye|Ema
+Godot|normal|Godot|Diego Armando
+Judge|normal|The Judge|Judge
+Pearl|normal|Pearl Fey|Pearl
+Kristoph|normal|Kristoph Gavin|Kristoph
+Klavier|normal|Klavier Gavin|Klavier
+Gant|normal|Damon Gant|Gant
+Manfred|normal|Manfred von Karma|von Karma
+Mia|normal|Mia Fey|Mia
+Maggey|normal|Maggey Byrde|Maggey
+Lotta|normal|Lotta Hart|Lotta
+Butz|normal|Larry Butz|Larry
+Oldbag|normal|Wendy Oldbag|Oldbag
+Layton|normal|Professor Layton|Layton
+Atmey|normal|Luke Atmey|Atmey
+Payne|normal|Winston Payne|Payne
+Hobo_Phoenix|normal|Phoenix Wright|Hobo Phoenix|Nick

@@ -199,7 +199,11 @@ type ServerConfig struct {
 	VoteMuteDuration    int      `toml:"vote_mute_duration"`
 	TypingRacePhrases   []string `toml:"typing_race_phrases"`
 	DailyQuote          bool     `toml:"dailyquote"`
-	DailyQuoteOffline   bool     `toml:"dailyquote_offline"`
+	Icebreaker          bool     `toml:"icebreaker"`
+	GuessWho            bool     `toml:"guesswho"`
+	BotTextColor        string   `toml:"bot_text_color"`
+	BotIniCharacter     string   `toml:"bot_ini_character"`
+	BotEmote            string   `toml:"bot_emote"`
 	EnableNewspaper     bool     `toml:"enable_newspaper"`
 	NewspaperInterval   string   `toml:"newspaper_interval"`
 	NewspaperSections   []string `toml:"newspaper_sections"`
@@ -333,6 +337,9 @@ func DefaultConfig() *Config {
 			Desc:                                 "",
 			MaxPlayers:                           100,
 			MaxMsg:                               256,
+			BotTextColor:                        "yellow",
+			BotIniCharacter:                     "hans christian andersen (fgo)",
+			BotEmote:                            "adult/normal",
 			BanLen:                               "3d",
 			EnableWS:                             false,
 			WSPort:                               27017,

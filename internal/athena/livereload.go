@@ -292,6 +292,11 @@ func ReloadConfig() (string, error) {
 	}
 
 	newCDNs := settings.LoadCDNs()
+	newBotContent, err := loadBotContent()
+	if err != nil { return "", err }
+	if candidate, err := settings.GetConfig(); err == nil {
+		if _, err := parseBotOptions(candidate); err != nil { return "", err }
+	}
 
 	// 8ball.txt and the automod wordlist are optional; load failures leave the
 	// current value in place rather than aborting the reload.
@@ -380,6 +385,10 @@ func ReloadConfig() (string, error) {
 	if haveEight && !equalStrSlices(getEightBall(), newEight) {
 		setEightBall(newEight)
 		changes = append(changes, "8ball.txt")
+	}
+	if botChanges := botContentDifferences(newBotContent); len(botChanges) > 0 {
+		botContentPtr.Store(newBotContent)
+		changes = append(changes, botChanges...)
 	}
 
 	if haveBanned && !equalStrSlices(getBannedWords(), newBanned) {

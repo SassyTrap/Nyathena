@@ -59,6 +59,9 @@ func initHotConfig(c *settings.Config) {
 	defer hotConfigMu.Unlock()
 	hotMotd = c.Motd
 	hotDesc = c.Desc
+	if _, err := publishBotOptions(c); err != nil {
+		logger.LogWarningf("bot: %v", err)
+	}
 }
 
 // GetMotd returns the server's current message-of-the-day under a read lock.
@@ -108,6 +111,12 @@ func ReloadHotConfig() (int, error) {
 	if raidGuardActive.Load() != conf.RaidGuardEnabled {
 		raidGuardActive.Store(conf.RaidGuardEnabled)
 		changed++
+	}
+
+	if n, err := publishBotOptions(conf); err != nil {
+		return changed, err
+	} else {
+		changed += n
 	}
 
 	if changed > 0 {

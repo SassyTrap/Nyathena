@@ -1369,13 +1369,20 @@ vote_mute_duration = 300
 #   ]
 typing_race_phrases = []
 
-# --- Daily Quote ------------------------------------------------------------
-# Enable the public /dailyquote command (Kai-Bot-SG).
-# Existing configurations without this option leave the command disabled.
+# --- Local IC Bot Commands --------------------------------------------------
+# Set to true to enable each command. The data is read from local text files.
 dailyquote = true
+icebreaker = false
+guesswho = false
 
-# Use only built-in quotes; avoids HTTP requests and disk cache writes.
-dailyquote_offline = false
+# Text colour for all three commands: white, green, red, orange, blue,
+# yellow, pink, cyan, grey or rainbow.
+bot_text_color = "yellow"
+
+# Bot INI-edited asset folder and animation ("19 - normal" uses adult/normal).
+# /guesswho temporarily shows the selected guesswho.txt character instead.
+bot_ini_character = "hans christian andersen (fgo)"
+bot_emote = "adult/normal"
 
 # --- Daily Newspaper --------------------------------------------------------
 

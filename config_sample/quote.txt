@@ -1,0 +1,367 @@
+# MM-DD | quotation — author
+# February 29 uses February 28 when no 02-29 entry is defined.
+01-01 | “I dwell in Possibility –” — Emily Dickinson
+01-02 | “Scenery is fine — but human nature is finer.” — John Keats
+01-03 | “Chaos was the law of nature; Order was the dream of man.” — Henry Adams
+01-04 | “Every profound spirit needs a mask” — Friedrich Nietzsche
+01-05 | “There is no road or ready way to virtue.” — Thomas Browne
+01-06 | “It is not worth the while to go round the world to count the cats in Zanzibar.” — Henry David Thoreau
+01-07 | “Always the beautiful answer who asks a more beautiful question.” — E. E. Cummings
+01-08 | “Try to be a rainbow in someone’s cloud.” — Maya Angelou
+01-09 | “I begin to think, that a calm is not desirable in any situation in life.” — Abigail Adams
+01-10 | “Don’t you see if you want something better, and better, and better, you lose the good?” — Hannah Arendt
+01-11 | “Make use of time while it is present with you.” — Michel de Montaigne
+01-12 | “Men never do evil so completely and cheerfully as when they do it from religious conviction.” — Blaise Pascal
+01-13 | “In the same way the proximity between truth and falsehood does not make truth falsehood nor falsehood truth.” — Al-Ghazali
+01-14 | “Life itself is a quotation.” — Jorge Luis Borges
+01-15 | “My friends are my "estate." Forgive me then the avarice to hoard them.” — Emily Dickinson
+01-16 | “The good life is one inspired by love and guided by knowledge.” — Bertrand Russell
+01-17 | “Pride that dines on vanity, sups on contempt” — Benjamin Franklin
+01-18 | “He who fears he shall suffer, already suffers what he fears.” — Michel de Montaigne
+01-19 | “Without faith, there never could have evolved hypothesis, theory, science or mathematics.” — Charlie Chaplin
+01-20 | “There is no such thing as moral phenomena, but only a moral interpretation of phenomena.” — Friedrich Nietzsche
+01-21 | “I have cherished the ideal of a democratic and free society in which all persons live together in harmony and with equal opportunities.” — Nelson Mandela
+01-22 | “I counted everything.” — Katherine Johnson
+01-23 | “There are so few who can grow old with a good grace.” — Richard Steele
+01-24 | “He who receives a benefit with gratitude, repays the first instalment of it.” — Seneca
+01-25 | “You can have the other words — chance, luck, coincidence, serendipity.” — Mary Oliver
+01-26 | “To be nameless in worthy deeds exceeds an infamous history.” — Thomas Browne
+01-27 | “Every deep thinker is more afraid of being understood than of being misunderstood.” — Friedrich Nietzsche
+01-28 | “Truth HAPPENS to an idea.” — William James
+01-29 | “Where knowledge is a duty, ignorance is a crime.” — Thomas Paine
+01-30 | “If 'freedom' becomes 'privilege', the workings of political freedom are broken.” — Rosa Luxemburg
+01-31 | “Writing is nothing more than a guided dream.” — Jorge Luis Borges
+02-01 | “Right is of no sex, Truth is of no color, God is the Father of us all, and we are all Brethren.” — Frederick Douglass
+02-02 | “Hydrogen selenide, I decided, was perhaps the worst smell in the world.” — Oliver Sacks
+02-03 | “With malice toward none, with charity for all” — Abraham Lincoln
+02-04 | “The essential job is to get people to recognise war propaganda when they see it, especially when it is disguised as peace propaganda.” — George Orwell
+02-05 | “Friends, meet together and know one another in that which is eternal, which was before the world was.” — George Fox
+02-06 | “Though I sit down now, the time will come when you will hear me.” — Benjamin Disraeli
+02-07 | “We promise according to our hopes, we perform according to our fears.” — François de La Rochefoucauld
+02-08 | “Life is action, the use of one's powers.” — Oliver Wendell Holmes Jr.
+02-09 | “Our government is the potent, the omnipresent teacher.” — Louis Brandeis
+02-10 | “There are no secrets about the world of nature.” — J. Robert Oppenheimer
+02-11 | “Science is the belief in the ignorance of experts.” — Richard Feynman
+02-12 | “As I would not be a slave, so I would not be a master.” — Abraham Lincoln
+02-13 | “That which is not good for the swarm, neither is it good for the bee.” — Marcus Aurelius
+02-14 | “How do I love thee? Let me count the ways.” — Elizabeth Barrett Browning
+02-15 | “What television does is rent us friends and relatives who are quite satisfactory.” — Kurt Vonnegut
+02-16 | “Self-love is the greatest of flatterers.” — François de La Rochefoucauld
+02-17 | “I think people in power have a vested interest to oppose critical thinking.” — Carl Sagan
+02-18 | “Sickness is a dangerous indulgence at my time of life.” — Jane Austen
+02-19 | “The poetry of earth is never dead.” — John Keats
+02-20 | “Truth is the daughter of time, and I feel no shame in being her midwife.” — Johannes Kepler
+02-21 | “Always human beings will progress to greater, broader, and fuller life.” — W. E. B. Du Bois
+02-22 | “Beauty without purpose is beauty without virtue.” — Mary Oliver
+02-23 | “Presumably the child-brain is something like a note-book as one buys it from the stationer's.” — Alan Turing
+02-24 | “I succeeded by saying what everyone else is thinking.” — Joan Rivers
+02-25 | “Democracy is the destiny of humanity; freedom its indestructible arm.” — Benito Juárez
+02-26 | “It is better to be a human being dissatisfied than a pig satisfied” — John Stuart Mill
+02-27 | “I believe study by means of drawing is most essential.” — Henri Matisse
+02-28 | “All the unhappiness of men arises from one single fact, that they cannot stay quietly in their own chamber.” — Blaise Pascal
+03-01 | “Where any answer is possible, all answers are meaningless.” — Isaac Asimov
+03-02 | “Interpretation is the revenge of the intellect upon art.” — Susan Sontag
+03-03 | “In what terms should we think of these beings, nonhuman yet possessing so very many human-like characteristics?” — Jane Goodall
+03-04 | “Abstract art is only painting.” — Pablo Picasso
+03-05 | “Expression has never been an inherent property of music.” — Igor Stravinsky
+03-06 | “The supreme vice is shallowness.” — Oscar Wilde
+03-07 | “If thought corrupts language, language can also corrupt thought.” — George Orwell
+03-08 | “I do not wish them to have power over men; but over themselves.” — Mary Wollstonecraft
+03-09 | “Story-tellers and poets spend their lives learning that skill and art of using words well.” — Ursula K. Le Guin
+03-10 | “If you would know the value of money, go and try to borrow some” — Benjamin Franklin
+03-11 | “An artist's duty, as far as I'm concerned, is to reflect the times.” — Nina Simone
+03-12 | “Do not be guilty of possessing a library of learned books while lacking learning yourself.” — Erasmus
+03-13 | “Antiessentialist thinking forces us to view the world differently.” — Stephen Jay Gould
+03-14 | “Pure mathematics is, in its way, the poetry of logical ideas.” — Albert Einstein
+03-15 | “I speak truth, not so much as I would, but as much as I dare” — Michel de Montaigne
+03-16 | “Resistance and change often begin in art.” — Ursula K. Le Guin
+03-17 | “When I think of art, I think of beauty.” — Agnes Martin
+03-18 | “Change your opinions, keep to your principles; change your leaves, keep intact your roots.” — Victor Hugo
+03-19 | “Where there is sorrow there is holy ground.” — Oscar Wilde
+03-20 | “Right and wrong are temporal, but time is neither right nor wrong.” — Dōgen
+03-21 | “Poetry is the spontaneous overflow of powerful feelings” — William Wordsworth
+03-22 | “Every other knowledge is harmful to him who does not have knowledge of goodness.” — Michel de Montaigne
+03-23 | “Our world hangs like a magnificent jewel in the vastness of space.” — Fred Rogers
+03-24 | “The aim of science is to discover and illuminate truth.” — Rachel Carson
+03-25 | “For poetry the idea is everything; the rest is a world of illusion, of divine illusion.” — Matthew Arnold
+03-26 | “The State is to make what is useful. The individual is to make what is beautiful.” — Oscar Wilde
+03-27 | “I do not want people to be very agreeable, as it saves me the trouble of liking them a great deal.” — Jane Austen
+03-28 | “Righteousness cannot be born until self-righteousness is dead.” — Bertrand Russell
+03-29 | “Things do not change; we change.” — Henry David Thoreau
+03-30 | “A writer who will not lie cannot live or work under Fascism.” — Ernest Hemingway
+03-31 | “We love the things we love for what they are.” — Robert Frost
+04-01 | “Toleration is good for all, or it is good for none.” — Edmund Burke
+04-02 | “Riches are a good handmaid, but the worst mistress.” — Francis Bacon
+04-03 | “The best of ideas is hurt by uncritical acceptance and thrives on critical examination.” — George Pólya
+04-04 | “There are three principal means of acquiring knowledge available to us: observation of nature, reflection, and experimentation.” — Denis Diderot
+04-05 | “He who knows only his own side of the case, knows little of that.” — John Stuart Mill
+04-06 | “Doubtless a mediocre man, when he copies will never produce a work of art.” — Auguste Rodin
+04-07 | “We do language. That may be the measure of our lives.” — Toni Morrison
+04-08 | “There is only one history — the history of Man.” — Rabindranath Tagore
+04-09 | “What cannot be imagined cannot even be talked about.” — Ludwig Wittgenstein
+04-10 | “Reason has always existed, but not always in a rational form.” — Karl Marx
+04-11 | “We think in generalities, but we live in detail.” — A. N. Whitehead
+04-12 | “The game of science is, in principle, without end.” — Karl Popper
+04-13 | “Your time is limited, so don't waste it living someone else's life.” — Steve Jobs
+04-14 | “Science fiction is the art of the possible.” — Ray Bradbury
+04-15 | “The greatest danger to our future is apathy.” — Jane Goodall
+04-16 | “The music of the people is like a rare and lovely flower growing amidst encroaching weeds.” — Antonín Dvořák
+04-17 | “A friend may well be reckoned the masterpiece of nature.” — Ralph Waldo Emerson
+04-18 | “When we began, we had no opportunities; we prepared in silence and created our own opportunity.” — Diego Rivera
+04-19 | “Throughout the world, change is the order of the day.” — Franklin D. Roosevelt
+04-20 | “What is truth but to live for an idea?” — Søren Kierkegaard
+04-21 | “Human drama does not show itself on the surface of life.” — Antoine de Saint-Exupéry
+04-22 | “In Wildness is the preservation of the World.” — Henry David Thoreau
+04-23 | “There is no Frigate like a Book” — Emily Dickinson
+04-24 | “I don't like to see animals in pain.” — Anthony Bourdain
+04-25 | “Nothing can bring you peace but yourself.” — Ralph Waldo Emerson
+04-26 | “Tell them I've had a wonderful life.” — Ludwig Wittgenstein
+04-27 | “Hatred and anger are the greatest poison to the happiness of a good mind.” — Adam Smith
+04-28 | “Genius can only breathe freely in an atmosphere of freedom.” — John Stuart Mill
+04-29 | “Human beings are unable to be honest with themselves about themselves.” — Akira Kurosawa
+04-30 | “If we had no faults we should not take so much pleasure in noting those of others.” — François de La Rochefoucauld
+05-01 | “All labor has dignity.” — Martin Luther King Jr.
+05-02 | “Life's meaning has always eluded me and I guess it always will.” — E. B. White
+05-03 | “I drank because I wanted to drown my sorrows, but now the damned things have learned to swim.” — Frida Kahlo
+05-04 | “We've learned from experience that the truth will out.” — Richard Feynman
+05-05 | “Las armas del Supremo Gobierno se han cubierto de gloria.” — Ignacio Zaragoza
+05-06 | “He who refuses to embrace a unique opportunity loses the prize as surely as if he tried and failed.” — William James
+05-07 | “Your silence will not protect you.” — Audre Lorde
+05-08 | “Well, all I know is what I read in the papers.” — Will Rogers
+05-09 | “My whole life has largely been one of surprises.” — Booker T. Washington
+05-10 | “The present enshrines the past—and in the past all history has been made by men.” — Simone de Beauvoir
+05-11 | “Active Evil is better than Passive Good.” — William Blake
+05-12 | “The observations, the individual results of measurements, are the answers of Nature to our discontinuous questioning.” — Erwin Schrödinger
+05-13 | “Nothing in life is so exhilarating as to be shot at without result.” — Winston Churchill
+05-14 | “Poets are the policemen of language; they are always arresting those old reprobates the words.” — William Butler Yeats
+05-15 | “To regret one's own experiences is to arrest one's own development.” — Oscar Wilde
+05-16 | “The secret is comprised in three words — Work, Finish, Publish.” — Michael Faraday
+05-17 | “We have all sufficient strength to support the misfortunes of others.” — François de La Rochefoucauld
+05-18 | “I've always been more interested in the future than in the past.” — Grace Hopper
+05-19 | “Capacity for the nobler feelings is in most natures a very tender plant” — John Stuart Mill
+05-20 | “Absent or dead, still let a friend be dear.” — Alexander Pope
+05-21 | “Science is more than a body of knowledge; it is a way of thinking.” — Carl Sagan
+05-22 | “Be silent, if you choose; but when it is necessary, speak—and speak in such a way that people will remember it.” — Wolfgang Amadeus Mozart
+05-23 | “Selfishness is not living as one wishes to live, it is asking others to live as one wishes to live.” — Oscar Wilde
+05-24 | “I began plotting novels at about the time I learned to read.” — James Baldwin
+05-25 | “Verona is full of pictures which have never been painted.” — Benjamin Disraeli
+05-26 | “The erotic cannot be felt secondhand.” — Audre Lorde
+05-27 | “May we never confuse honest dissent with disloyal subversion.” — Dwight D. Eisenhower
+05-28 | “All you need in this life is ignorance and confidence, and then Success is sure.” — Mark Twain
+05-29 | “Man is but a reed, the most feeble thing in nature; but he is a thinking reed.” — Blaise Pascal
+05-30 | “Passion often renders the most clever man a fool, and even sometimes renders the most foolish man clever.” — François de La Rochefoucauld
+05-31 | “Dickens, as you know, never got round to starting his home page.” — Terry Pratchett
+06-01 | “No man is free who is not master of himself.” — Epictetus
+06-02 | “Repetition does not transform a lie into a truth.” — Franklin D. Roosevelt
+06-03 | “A thing, moderately good, is not so good as it ought to be.” — Thomas Paine
+06-04 | “Without music life would be a mistake.” — Friedrich Nietzsche
+06-05 | “Knowledge does not keep any better than fish.” — A. N. Whitehead
+06-06 | “Everyone blames his memory, no one blames his judgment.” — François de La Rochefoucauld
+06-07 | “The sea — this truth must be confessed — has no generosity.” — Joseph Conrad
+06-08 | “I love good creditable acquaintance; I love to be the worst of the company.” — Jonathan Swift
+06-09 | “Our own political life is predicated on openness.” — J. Robert Oppenheimer
+06-10 | “Humor is laughing at what you haven't got when you ought to have it.” — Langston Hughes
+06-11 | “Time is but the stream I go a-fishing in.” — Henry David Thoreau
+06-12 | “A little neglect may breed great mischief” — Benjamin Franklin
+06-13 | “Poetry is the work of the bard and of the people who inspire him.” — José Martí
+06-14 | “There are things which are within our power, and there are things which are beyond our power.” — Epictetus
+06-15 | “Colors are the painting; tones are the music.” — John Dewey
+06-16 | “Everything in our life should be based on love.” — Ray Bradbury
+06-17 | “the only thing we have to fear is fear itself” — Franklin D. Roosevelt
+06-18 | “For love is ever the beginning of Knowledge, as fire is of light.” — Thomas Carlyle
+06-19 | “The power of the ballot we need in sheer self-defence,—else what shall save us from a second slavery?” — W. E. B. Du Bois
+06-20 | “Imaginary good is boring; real good is always new, marvelous, intoxicating.” — Simone Weil
+06-21 | “My purpose is to set forth a very new science dealing with a very ancient subject.” — Galileo Galilei
+06-22 | “You have seen how a man was made a slave; you shall see how a slave was made a man.” — Frederick Douglass
+06-23 | “Wisdom is better than wit, and in the long run will certainly have the laugh on her side” — Jane Austen
+06-24 | “Love is a battle, love is a war; love is a growing up.” — James Baldwin
+06-25 | “Let us dare to read, think, speak, and write.” — John Adams
+06-26 | “Our errors are surely not such awfully solemn things.” — William James
+06-27 | “While we are postponing, life speeds by.” — Seneca the Younger
+06-28 | “All existing things soon change, and they will either be reduced to vapor, if indeed all substance is one, or they will be dispersed.” — Marcus Aurelius
+06-29 | “Over himself, over his own body and mind, the individual is sovereign.” — John Stuart Mill
+06-30 | “A teacher affects eternity; he can never tell where his influence stops.” — Henry Adams
+07-01 | “How slowly I have made my way in life!” — Nathaniel Hawthorne
+07-02 | “Virtue is not always amiable.” — John Adams
+07-03 | “It is not the critic who counts” — Theodore Roosevelt
+07-04 | “We hold these truths to be self-evident, that all men are created equal” — Thomas Jefferson and the Continental Congress
+07-05 | “Reading maketh a full man; conference a ready man; and writing an exact man.” — Francis Bacon
+07-06 | “All silencing of discussion is an assumption of infallibility.” — John Stuart Mill
+07-07 | “We reason deeply, when we forcibly feel.” — Mary Wollstonecraft
+07-08 | “The more that learn to read the less learn how to make a living.” — Will Rogers
+07-09 | “The history of human thought recalls the swinging of a pendulum which takes centuries to swing.” — Peter Kropotkin
+07-10 | “To covet truth is a very distinguished passion.” — George Santayana
+07-11 | “One child, one teacher, one pen and one book can change the world.” — Malala Yousafzai
+07-12 | “The World and Life are one.” — Ludwig Wittgenstein
+07-13 | “We are not enemies, but friends. We must not be enemies.” — Abraham Lincoln
+07-14 | “What I must do is all that concerns me, not what the people think.” — Ralph Waldo Emerson
+07-15 | “We turn not older with years, but newer every day.” — Emily Dickinson
+07-16 | “Ambition has its disappointments to sour us, but never the good fortune to satisfy us.” — Benjamin Franklin
+07-17 | “I don't see writing as anything more important than cooking.” — Anthony Bourdain
+07-18 | “Education is the most powerful weapon which you can use to change the world.” — Nelson Mandela
+07-19 | “There is never vulgarity in a whole truth, however commonplace.” — John Ruskin
+07-20 | “That's one small step for [a] man, one giant leap for mankind.” — Neil Armstrong
+07-21 | “A foolish consistency is the hobgoblin of little minds” — Ralph Waldo Emerson
+07-22 | “Love is not consolation, it is light.” — Simone Weil
+07-23 | “Science cannot solve the ultimate mystery of nature.” — Max Planck
+07-24 | “One need not fear about the future of music.” — John Cage
+07-25 | “Very frankly, I am opposed to people being programmed by others.” — Fred Rogers
+07-26 | “Some books are to be tasted, others to be swallowed, and some few to be chewed and digested” — Francis Bacon
+07-27 | “The demand that I make of my reader is that he should devote his whole Life to reading my works.” — James Joyce
+07-28 | “Trust thyself: every heart vibrates to that iron string.” — Ralph Waldo Emerson
+07-29 | “Almost all Japanese animation is produced with hardly any basis taken from observing real people, you know.” — Hayao Miyazaki
+07-30 | “Inspiration is born from a continuous “I don’t know.”” — Wisława Szymborska
+07-31 | “I've got nature and art and poetry, and if that isn't enough, what is?” — Vincent van Gogh
+08-01 | “I never did a day's work in my life, it was all fun.” — Thomas Edison
+08-02 | “The better part of one's life consists of his friendships.” — Abraham Lincoln
+08-03 | “We celebrate the past to awaken the future.” — John F. Kennedy
+08-04 | “The whole function of philosophy ought to be to find out what definite difference it will make to you and me” — William James
+08-05 | “The single story creates stereotypes, and the problem with stereotypes is not that they are untrue, but that they are incomplete.” — Chimamanda Ngozi Adichie
+08-06 | “Silence is the virtue of a fool.” — Francis Bacon
+08-07 | “Let those flatter, who fear: it is not an American art.” — Thomas Jefferson
+08-08 | “I can prove now, for instance, that two human hands exist.” — G. E. Moore
+08-09 | “Real change, enduring change, happens one step at a time.” — Ruth Bader Ginsburg
+08-10 | “You do what you think is right and let the law catch up.” — Thurgood Marshall
+08-11 | “A grateful dog is better than an ungrateful man.” — Saadi Shirazi
+08-12 | “People who boast about their IQ are losers.” — Stephen Hawking
+08-13 | “There is not love of life without despair about life.” — Albert Camus
+08-14 | “Nothing great was ever achieved without enthusiasm.” — Ralph Waldo Emerson
+08-15 | “Resolve to spend a certain number of hours every day amongst your books.” — Samuel Johnson
+08-16 | “Our life is frittered away by detail.” — Henry David Thoreau
+08-17 | “The young are life, and there is no hope but in them.” — H. G. Wells
+08-18 | “If there is no struggle, there is no progress.” — Frederick Douglass
+08-19 | “I never think of the time I have lost.” — Nelson Mandela
+08-20 | “Most of us seldom take the trouble to think.” — Jawaharlal Nehru
+08-21 | “Fight for the things that you care about, but do it in a way that will lead others to join you.” — Ruth Bader Ginsburg
+08-22 | “Only in thought is man a God; in action and desire we are the slaves of circumstance.” — Bertrand Russell
+08-23 | “The heart has its reasons, which reason does not know.” — Blaise Pascal
+08-24 | “Attraction and repulsion, reason and energy, love and hate are necessary to human existence.” — William Blake
+08-25 | “To me there is no past or future in my art.” — Pablo Picasso
+08-26 | “It was we the people, not we the white male citizens” — Susan B. Anthony
+08-27 | “Power concedes nothing without a demand.” — Frederick Douglass
+08-28 | “Diligence is the mother of good luck” — Benjamin Franklin
+08-29 | “Independence I have long considered as the grand blessing of life” — Mary Wollstonecraft
+08-30 | “I can't understand why people are frightened of new ideas.” — John Cage
+08-31 | “I wouldn't give an astrologer the time of day.” — Isaac Asimov
+09-01 | “It is impossible to live without failing at something” — J. K. Rowling
+09-02 | “The history of free men is never really written by chance-but by choice-their choice.” — Dwight D. Eisenhower
+09-03 | “Injustice anywhere is a threat to justice everywhere.” — Martin Luther King Jr.
+09-04 | “Democracy is not a state. It is an act” — John Lewis
+09-05 | “We oldies have made something of a mess of the world.” — Desmond Tutu
+09-06 | “We are never so happy or so unhappy as we suppose.” — François de La Rochefoucauld
+09-07 | “Life is a business that does not cover the costs.” — Arthur Schopenhauer
+09-08 | “From that moment, I understood the pathway from slavery to freedom.” — Frederick Douglass
+09-09 | “Free enterprise cannot be justified as being good for business.” — Peter Drucker
+09-10 | “I can recollect nothing more to say at present; perhaps breakfast may assist my ideas.” — Jane Austen
+09-11 | “The will to overcome an emotion, is ultimately only the will of another, or of several other, emotions.” — Friedrich Nietzsche
+09-12 | “The art of life is more like the wrestler’s art than the dancer’s” — Marcus Aurelius
+09-13 | “Having books published is very destructive to writing.” — Ernest Hemingway
+09-14 | “The goal of the future is full unemployment, so we can play.” — Arthur C. Clarke
+09-15 | “I have not lived, but only dreamed about living.” — Nathaniel Hawthorne
+09-16 | “Que la América es libre e independiente de España y de toda otra Nación, Gobierno o Monarquía” — José María Morelos
+09-17 | “As our case is new, so we must think anew and act anew.” — Abraham Lincoln
+09-18 | “I've never felt any sense of competition with anybody, and we're all friends.” — Jim Henson
+09-19 | “Love takes off the masks that we fear we cannot live without and know we cannot live within.” — James Baldwin
+09-20 | “The mass of men lead lives of quiet desperation.” — Henry David Thoreau
+09-21 | “We face the future fortified with the lessons we have learned from the past.” — Eleanor Roosevelt
+09-22 | “Nothing is at last sacred but the integrity of your own mind.” — Ralph Waldo Emerson
+09-23 | “Science is a differential equation.” — Alan Turing
+09-24 | “Love is our true destiny.” — Thomas Merton
+09-25 | “Every political good carried to the extreme must be productive of evil.” — Mary Wollstonecraft
+09-26 | “Life is painting a picture, not doing a sum.” — Oliver Wendell Holmes Jr.
+09-27 | “Let us not seek the Republican answer or the Democratic answer but the right answer.” — John F. Kennedy
+09-28 | “Revenge is a kind of wild justice” — Francis Bacon
+09-29 | “The greatest foe to art is luxury, art cannot live in its atmosphere.” — William Morris
+09-30 | “I had three chairs in my house; one for solitude, two for friendship, three for society.” — Henry David Thoreau
+10-01 | “I don't see any American dream; I see an American nightmare.” — Malcolm X
+10-02 | “Death, on the other hand, is the final silence.” — Audre Lorde
+10-03 | “You cannot hope to build a better world without improving the individuals.” — Marie Curie
+10-04 | “Music's exclusive function is to structure the flow of time and keep order in it.” — Igor Stravinsky
+10-05 | “Books must follow sciences, and not sciences books.” — Francis Bacon
+10-06 | “The work of science is to substitute facts for appearances, and demonstrations for impressions.” — John Ruskin
+10-07 | “The idea of bringing someone into the world fills me with horror.” — Gustave Flaubert
+10-08 | “Man can embody truth but he cannot know it.” — William Butler Yeats
+10-09 | “I obey nature, I never presume to command her.” — Auguste Rodin
+10-10 | “The true antithesis of nature is not art but arbitrary conceit, fantasy, and stereotyped convention.” — John Dewey
+10-11 | “We see the stars, and we want them.” — Ray Bradbury
+10-12 | “Euclid alone has looked on Beauty bare.” — Edna St. Vincent Millay
+10-13 | “Freedom and liberty lose out by default because good people are not vigilant.” — Desmond Tutu
+10-14 | “I stand and rejoice every time I see a woman ride by on a wheel.” — Susan B. Anthony
+10-15 | “Happy the people whose annals are blank in history books!” — Thomas Carlyle
+10-16 | “Music is the deepest of the arts and deep beneath the arts.” — E. M. Forster
+10-17 | “The beginning of philosophy is to know the condition of one’s own mind.” — Epictetus
+10-18 | “Art is the perfection of nature.” — Thomas Browne
+10-19 | “I think my mind becomes clearer when I am in the presence of nature.” — Paul Cézanne
+10-20 | “Let us endeavour, then, to think well; this is the principle of morality.” — Blaise Pascal
+10-21 | “I detest life-insurance agents: they always argue that I shall some day die, which is not so.” — Stephen Leacock
+10-22 | “ask not what your country can do for you—ask what you can do for your country.” — John F. Kennedy
+10-23 | “The really important kind of freedom involves attention, and awareness, and discipline, and effort” — David Foster Wallace
+10-24 | “Life is always a tightrope or a feather bed.” — Edith Wharton
+10-25 | “The only way to have a friend is to be one.” — Ralph Waldo Emerson
+10-26 | “The man of perfect virtue is cautious and slow in his speech.” — Confucius
+10-27 | “The Analytical Engine has no pretensions whatever to originate anything.” — Ada Lovelace
+10-28 | “The vocation of every man and woman is to serve other people.” — Leo Tolstoy
+10-29 | “Uniform ideas originating among entire peoples unknown to each other must have a common ground of truth.” — Giambattista Vico
+10-30 | “Lock up your libraries if you like; but there is no gate, no lock, no bolt that you can set upon the freedom of my mind.” — Virginia Woolf
+10-31 | “Thy soul shall find itself alone / ’Mid dark thoughts of the gray tomb-stone” — Edgar Allan Poe
+11-01 | “Those who deny freedom to others deserve it not for themselves” — Abraham Lincoln
+11-02 | “The life of the dead resides in the memory of the living.” — Cicero
+11-03 | “Our job is to love others without stopping to inquire whether or not they are worthy.” — Thomas Merton
+11-04 | “History is a story without an end.” — Isaac Asimov
+11-05 | “Politicians should read science fiction, not westerns and detective stories.” — Arthur C. Clarke
+11-06 | “We can run from each other, but we cannot escape each other.” — Thurgood Marshall
+11-07 | “Science fiction films are not about science.” — Susan Sontag
+11-08 | “Speak only if your words will benefit yourselves and others.” — Dōgen
+11-09 | “Painters understand nature and love it, and teach us to see.” — Vincent van Gogh
+11-10 | “The eternal silence of these infinite spaces frightens me.” — Blaise Pascal
+11-11 | “My subject is War, and the pity of War. The Poetry is in the pity.” — Wilfred Owen
+11-12 | “The dogmas of the quiet past are inadequate to the stormy present.” — Abraham Lincoln
+11-13 | “I have always thought the actions of men the best interpreters of their thoughts.” — John Locke
+11-14 | “If slavery, barbarism and desolation are to be called peace, men can have no worse misfortune.” — Baruch Spinoza
+11-15 | “As there was never any question there was never any answer.” — Gertrude Stein
+11-16 | “Consistency is the last refuge of the unimaginative.” — Oscar Wilde
+11-17 | “Reading is to the mind what exercise is to the body.” — Richard Steele
+11-18 | “We must constantly remind ourselves that whatever our religion or creed, we are all one people.” — Jawaharlal Nehru
+11-19 | “If we could change ourselves, the tendencies in the world would also change.” — Mahatma Gandhi
+11-20 | “I remember I used to half believe and wholly play with fairies when I was a child.” — Beatrix Potter
+11-21 | “I have never forgotten that you were the first who taught me to see and to comprehend.” — Claude Monet
+11-22 | “We are called to assist the Earth to heal her wounds and in the process heal our own” — Wangari Maathai
+11-23 | “No man's knowledge here can go beyond his experience.” — John Locke
+11-24 | “Real art has the capacity to make us nervous.” — Susan Sontag
+11-25 | “Not everything that is faced can be changed, but nothing can be changed until it is faced.” — James Baldwin
+11-26 | “Wit has truth in it; wise-cracking is simply calisthenics with words.” — Dorothy Parker
+11-27 | “Practical politics consists in ignoring facts” — Henry Adams
+11-28 | “Be warned in time, James, and remain, as I do, incomprehensible: to be great is to be misunderstood.” — Oscar Wilde
+11-29 | “Others go to bed with their mistresses; I with my ideas.” — José Martí
+11-30 | “Sometimes, I feel discriminated against, but it does not make me angry. It merely astonishes me.” — Zora Neale Hurston
+12-01 | “Intolerance is natural and logical, for in every dissenting opinion lies an assumption of superior wisdom.” — Ambrose Bierce
+12-02 | “I love a broad margin to my life.” — Henry David Thoreau
+12-03 | “If we would guide by the light of reason, we must let our minds be bold.” — Louis Brandeis
+12-04 | “A cookbook is only as good as its worst recipe.” — Julia Child
+12-05 | “Accustom thyself to attend carefully to what is said by another, and as much as it is possible, be in the speaker’s mind.” — Marcus Aurelius
+12-06 | “The head is ever the dupe of the heart.” — François de La Rochefoucauld
+12-07 | “In no country does the mass of the people live the life for intelligent thought and action.” — B. R. Ambedkar
+12-08 | “In nature nothing exists alone.” — Rachel Carson
+12-09 | “For there is always light, / if only we’re brave enough to see it. / If only we’re brave enough to be it.” — Amanda Gorman
+12-10 | “Where, after all, do universal human rights begin? In small places, close to home” — Eleanor Roosevelt
+12-11 | “The world to me is a dream and the people in it are sleepers.” — Katherine Mansfield
+12-12 | “There are some oddities in the perspective with which we see the world.” — Douglas Adams
+12-13 | “Hope is the one thing left to us in a bad time.” — E. B. White
+12-14 | “A violent wind does not outlast the morning; a squall of rain does not outlast the day.” — Laozi
+12-15 | “The world goes round, and the other side comes up.” — Herman Melville
+12-16 | “Properly speaking, there are no barbarian standards.” — José Ortega y Gasset
+12-17 | “Nature hath given men one tongue but two ears, that we may hear from others twice as much as we speak.” — Epictetus
+12-18 | “The universe is transformation: life is opinion.” — Marcus Aurelius
+12-19 | “The rules of morality, therefore, are not conclusions of our reason.” — David Hume
+12-20 | “I am past thirty, and three parts iced over.” — Matthew Arnold
+12-21 | “The meaning of the world is the separation of wish and fact.” — Kurt Gödel
+12-22 | “One must learn to know oneself before knowing anything else (gnothi seauton).” — Søren Kierkegaard
+12-23 | “Everything in life that we really accept undergoes a change.” — Katherine Mansfield
+12-24 | “Most people cannot bear to fail, even once.” — Agnes Martin
+12-25 | “Love came down at Christmas, / Love all lovely, Love Divine” — Christina Rossetti
+12-26 | “History is nothing but assisted and recorded memory.” — George Santayana
+12-27 | “In plucking the fruit of memory one runs the risk of spoiling its bloom.” — Joseph Conrad
+12-28 | “I want to hear your think, or to see your thoughts.” — John Adams
+12-29 | “A poet can survive everything but a misprint.” — Oscar Wilde
+12-30 | “Beauty is an awareness in the mind.” — Agnes Martin
+12-31 | “We’ll tak a cup o’ kindness yet” — Robert Burns
