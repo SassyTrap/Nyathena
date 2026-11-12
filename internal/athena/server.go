@@ -607,6 +607,7 @@ func NewServer(conf *settings.Config) (*Server, error) {
 	initFromSoftWords()
 	initCvote(conf)
 	initHotConfig(conf)
+	initBotContent()
 	initMusicBans()
 	initShadowDisconnects()
 	initLockdownExempt()

@@ -29,8 +29,9 @@ import "fmt"
 //   - backgrounds.txt
 //   - parrot.txt
 //   - 8ball.txt          (optional; missing file leaves current value intact)
+//   - quote.txt, icebreakers.txt, guesswho.txt (local bot content)
 //   - banned_words.txt   (only when automod is enabled)
-//   - config.toml        (motd and description only)
+//   - config.toml        (motd, description, raid guard and bot settings)
 //
 // Areas, listener ports, rate-limit windows, roles and the server name are NOT
 // reloaded — those require a restart because they're snapshotted into other
