@@ -3,8 +3,6 @@ package athena
 
 import "time"
 
-var dailyQuoteLimiter = newBotLimiter()
-
 func cmdDailyQuote(client *Client, _ []string, _ string) {
 	opts := currentBotOptions()
 	if !opts.DailyQuote {
@@ -21,12 +19,12 @@ func cmdDailyQuote(client *Client, _ []string, _ string) {
 		client.SendServerMessage("No quote is configured for today's date in quote.txt.")
 		return
 	}
-	if ok, reason := dailyQuoteLimiter.reserve(room); !ok {
+	if ok, reason := botCommandLimiter.reserve(room); !ok {
 		client.SendServerMessage(reason)
 		return
 	}
 	go func() {
-		defer dailyQuoteLimiter.release(room, true)
+		defer botCommandLimiter.release(room, true)
 		botSendIC(room, quote, botSprite(opts), botDisplayName, opts)
 	}()
 }

@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 package athena
 
-var icebreakerLimiter = newBotLimiter()
-
 func cmdIcebreaker(client *Client, _ []string, _ string) {
 	opts := currentBotOptions()
 	if !opts.Icebreaker {
@@ -19,12 +17,12 @@ func cmdIcebreaker(client *Client, _ []string, _ string) {
 		client.SendServerMessage("No icebreaker questions are configured in icebreakers.txt.")
 		return
 	}
-	if ok, reason := icebreakerLimiter.reserve(room); !ok {
+	if ok, reason := botCommandLimiter.reserve(room); !ok {
 		client.SendServerMessage(reason)
 		return
 	}
 	go func() {
-		defer icebreakerLimiter.release(room, true)
+		defer botCommandLimiter.release(room, true)
 		botSendIC(room, "Icebreaker: "+text, botSprite(opts), botDisplayName, opts)
 	}()
 }

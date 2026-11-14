@@ -54,6 +54,9 @@ type botOptions struct {
 var botContentPtr atomic.Pointer[botContent]
 var botOptionsPtr atomic.Pointer[botOptions]
 
+// One server-wide concurrency and room cooldown budget for quote and icebreaker commands.
+var botCommandLimiter = newBotLimiter()
+
 func currentBotContent() *botContent {
 	if x := botContentPtr.Load(); x != nil {
 		return x
@@ -82,9 +85,6 @@ func parseBotOptions(c *settings.Config) (botOptions, error) {
 	}
 	ini := strings.TrimSpace(c.BotIniCharacter)
 	emote := strings.TrimSpace(c.BotEmote)
-	if ini == "" {
-		ini = "hans christian andersen (fgo)"
-	}
 	if emote == "" {
 		emote = "adult/normal"
 	}
@@ -290,15 +290,13 @@ func botQuoteForDate(content *botContent, when time.Time) string {
 }
 
 func botSprite(opts botOptions) string {
-	chars := getCharacters()
-	if len(chars) == 0 {
-		return opts.IniCharacter
-	}
-	// Preserve the roster character selection as the fallback, then apply the INI override.
 	if opts.IniCharacter != "" {
 		return opts.IniCharacter
 	}
-	return chars[0]
+	if chars := getCharacters(); len(chars) > 0 {
+		return chars[0]
+	}
+	return "Phoenix"
 }
 func botSendIC(room *area.Area, txt, sprite, showname string, opts botOptions) {
 	max := botMaxRunes

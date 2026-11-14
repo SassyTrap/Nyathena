@@ -15,7 +15,7 @@ bot_ini_character = "hans christian andersen (fgo)"
 bot_emote = "adult/normal"
 ```
 
-The bot's `/dailyquote` and `/icebreaker` sprite uses the character-name override after selecting the first roster character as a fallback. `bot_emote` is the actual animation asset name (`adult/normal`), corresponding to the requested emote labelled `19 - normal` in that character's INI. This depends on the installed character assets matching those names. The position is witness. `bot_text_color` accepts `white`, `green`, `red`, `orange`, `blue`, `yellow`, `pink`, `cyan`, `grey`, or `rainbow` and applies to all three bot commands. If you prefer a different colour, edit it and use `/reload`.
+For `/dailyquote` and `/icebreaker`, `bot_ini_character` overrides the bot sprite. If the setting is blank, the first configured roster character is used; if the roster is empty, the final fallback is `Phoenix`. The default Andersen override is defined in `settings.DefaultConfig()`. `bot_emote` is the actual animation asset name (`adult/normal`), corresponding to the requested emote labelled `19 - normal` in that character's INI. This depends on the installed character assets matching those names. The position is witness. `bot_text_color` accepts `white`, `green`, `red`, `orange`, `blue`, `yellow`, `pink`, `cyan`, `grey`, or `rainbow` and applies to all three bot commands. If you prefer a different colour, edit it and use `/reload`.
 
 ## Text files
 
@@ -27,8 +27,10 @@ Blank lines and comment lines starting with `#` are ignored. The files must be U
 
 ## Commands
 
-- `/dailyquote` — the same quote for every request on the same date; five-minute cooldown per room, maximum three simultaneous rooms.
-- `/icebreaker` — a random question from the local file, not tied to the date; the same cooldown and three-session limit.
+- `/dailyquote` — the same quote for every request on the same date.
+- `/icebreaker` — a random question from the local file, not tied to the date.
+
+Both commands share one five-minute cooldown per room and a single server-wide limit of three simultaneous sessions total.
 - `/guesswho` — displays the sprite from a random row in `guesswho.txt` at the witness position and asks "Who am I?". Players guess by sending **ordinary IC messages**, not OOC or commands. The answer is checked against the canonical name and aliases, ignoring punctuation, spaces and case; small spelling errors are accepted. A correct guess receives an IC reply naming the winner; after 60 seconds without a correct answer, the bot announces that no one succeeded and reveals the answer. There is a five-minute room cooldown.
 
 The synthetic bot sends a goodbye and stops speaking when a round finishes. It is not a real network-connected player, so it does **not** trigger a literal player disconnect or clear every client's courtroom sprite. Actual join/leave would require an additional virtual-player implementation.
